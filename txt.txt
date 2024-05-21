@@ -1,0 +1,5 @@
+https://gitlab.com/BondarevaViktoria/megano/-/blob/main/folger/megano/profile_app/views.py?ref_type=heads
+
+https://gitlab.com/truemazafaka1/django-megano-shop/-/blob/main/megano/profiles/views.py?ref_type=heads
+
+https://github.com/expmax85/Django-MarketPlace
