@@ -14,6 +14,9 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+DATABASE_DIR = BASE_DIR / 'database'
+DATABASE_DIR.mkdir(exist_ok=True)
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -38,8 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'rest_framework',
+
     'frontend',
     'userprofile.apps.UserprofileConfig',
+
 ]
 
 MIDDLEWARE = [
@@ -79,9 +85,12 @@ WSGI_APPLICATION = 'megano.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': DATABASE_DIR / 'db.sqlite3',
+
     }
 }
+
 
 
 # Password validation
@@ -119,8 +128,27 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'uploads'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORKS = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
+
+    ),
+    "DEFAULT_PAGINATION_CLASS": "rets_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 10,
+}
+
+#APPEND_SLASH = False
+
