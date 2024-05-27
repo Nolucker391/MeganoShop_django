@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, password_validation
 from rest_framework import serializers
 from rest_framework.response import Response
 from django.contrib.auth.models import User
@@ -50,25 +50,67 @@ class RegisterSerializer(serializers.Serializer):
 
         return user_auth
 
-class UserProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = UserProfile
-        fields = (
-            'id',
-            'user',
-            'fullName',
-            'email',
-            'avatar',
-            'phone',
-        )
+class ProfileUpdateSerializer(serializers.Serializer):
+    fullName = serializers.CharField()
+    email = serializers.EmailField()
+    phone = serializers.CharField()
 
-    avatar = serializers.SerializerMethodField()
+    def update(self, instance, validated_data):
+        instance.userprofile.fullName = validated_data.get('fullName')
+        instance.email = validated_data.get('email')
+        instance.userprofile.phone = validated_data.get('phone')
+        instance.userprofile.save()
+        instance.save()
+        return instance
 
-    def get_avatar(self, instance):
-        return {'src': f'/media/{instance.avatar.name}',
-                'alt': f'{instance.fullName}'}
 
-class UserAvatarSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = UserProfile
-        fields = 'avatar',
+class AvatarUpdateSerializer(serializers.Serializer):
+    avatar = serializers.ImageField()
+
+    def update(self, instance, validated_data):
+        image_file = validated_data.get('avatar')
+        if str(image_file).endswith(('.png', '.jpg', '.jpeg')):
+            instance.userprofile.avatar = image_file
+            if instance.userprofile.avatar.size < 2 * 1024 * 1024:
+                instance.userprofile.save()
+                instance.save()
+            else:
+                return Response(
+                    {
+                        "error": "Invalid file format",
+                        "details": "The uploaded file is not a supported image",
+                    },
+                    status=400
+                )
+        else:
+            return Response(
+                    {
+                        "error": "Invalid file format",
+                        "details": "'Wrong file format'",
+                    },
+                    status=400
+                )
+
+        return instance
+
+        # image_file = validated_data.FILES["avatar"]
+        # if str(image_file).endswith(('.png', '.jpg', '.jpeg')):
+        #     instance.userprofile.avatar = image_file
+        #     if instance.userprofile.avatar and instance.userprofile.avatar.size < 2 * 1024 * 1024:
+        #         instance.userprofile.save()
+        #         instance.save()
+        #     else:
+        #         return Response('avatar bigger then 2 mb or no avatar provided', status=400)
+        # else:
+        #     return Response('Wrong file format', status=400)
+        #
+        # return instance
+
+class PasswordChangeSerializer(serializers.Serializer):
+    passwordCurrent = serializers.CharField(required=True)
+    passwordReply = serializers.CharField(required=True)
+    password = serializers.CharField(required=True)
+
+
+
+

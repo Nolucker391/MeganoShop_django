@@ -2,11 +2,11 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-def avatar_directory_path(instance: 'User', filename: str) -> str:
-    return 'users/user_{pk}/{filename}'.format(
-        pk=instance.pk,
-        filename=filename,
+def upload_avatar_path(instance: 'Profile', filename: str) -> str:
+    return "users/user_{pk}/avatars/{filename}".format(
+        pk=instance.user.pk, filename=filename
     )
+
 
 
 class UserProfile(models.Model):
@@ -23,8 +23,12 @@ class UserProfile(models.Model):
     )
     email = models.EmailField(max_length=200)
     phone = models.CharField(max_length=50)
-    avatar = models.ImageField(null=True,
-                               blank=True,
-                               upload_to=avatar_directory_path,
-                               )
+    avatar = models.ImageField(null=True, upload_to=upload_avatar_path)
+
+    def __str__(self):
+        return 'profile {user}'.format(user=self.user.username)
+
+    class Meta:
+        verbose_name = 'profile'
+        verbose_name_plural = 'profiles'
 

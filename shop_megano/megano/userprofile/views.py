@@ -7,44 +7,124 @@ from django.http import HttpRequest, HttpResponse
 from rest_framework.response import Response
 from django.urls import reverse_lazy
 from rest_framework.views import APIView
+from rest_framework.generics import UpdateAPIView
+from django.contrib.auth.hashers import check_password, make_password
 
 
-from .serializers import LoginSerializer, RegisterSerializer, UserProfileSerializer, UserAvatarSerializer
+from .serializers import (
+    LoginSerializer,
+    RegisterSerializer,
+    AvatarUpdateSerializer,
+    ProfileUpdateSerializer,
+    PasswordChangeSerializer,
+)
 from rest_framework import status
 
 from django.contrib.auth.models import User
 from .models import UserProfile
 
 class UserProfileDetails(APIView):
-    def get(self, request: HttpRequest) -> Response:
-        user = request.user.pk
-        profile = UserProfile.objects.get(user_id=user)
-        serializer = UserProfileSerializer(profile, many=False)
-        return Response(serializer.data)
+    def post(self, request):
+        user = request.user
 
-    def post(self, request: HttpRequest) -> Response:
-        user = request.user.pk
-        profile = UserProfile.objects.get(user_id=user)
-        profile.fullName = request.data.get('fullName')
-        profile.phone = request.data.get('phone')
-        profile.email = request.data.get('email')
-        profile.save()
-        serialized = UserProfileSerializer(profile, many=False)
-        return Response(serialized.data)
+        data = {
+            'fullName': request.data.get('fullName'),
+            'email': request.data.get('email'),
+            'phone': request.data.get('phone')
+        }
+
+        serializer = ProfileUpdateSerializer(data=data)
+
+        if serializer.is_valid():
+            serializer.update(user, data)
+            return Response(serializer.data, status=200)
+        else:
+            return Response(serializer.errors, status=400)
+
+    def get(self, request: HttpRequest):
+        if request.user.is_authenticated:
+            user = request.user
+
+            data = {
+                'fullName': user.userprofile.fullName,
+                'email': user.email,
+                'phone': user.userprofile.phone,
+            }
+            if user.userprofile.avatar:
+                data['avatar'] = {
+                    'src': user.userprofile.avatar.url,
+                    'alt': user.userprofile.avatar.name,
+                }
+            return Response(data=data, status=200)
+        return Response(status=400)
+
 
 class UserAvatarUpdate(APIView):
-    serializer_class = UserAvatarSerializer
-    def post(self, request: HttpRequest) -> Response:
-        new_avatar = request.FILES['avatar']
-        user = request.user.pk
-        profile = UserProfile.objects.get(user_id=user)
-        profile.avatar = new_avatar
-        profile.save()
 
-        return Response(
-            "Успешно обновлено.",
-            status=200,
-        )
+    def post(self, request: HttpRequest):
+        user = request.user
+
+        data = {
+            'src': request.data.get('src'),
+            'alt': request.data.get('alt')
+        }
+
+        serializer = AvatarUpdateSerializer(instance=user, data=data)
+
+        if serializer.is_valid():
+            serializer.update(user, data)
+            return Response(serializer.data, status=200)
+        else:
+            return Response(serializer.errors, status=400)
+
+        # user = request.user.pk
+        # userprofile = UserProfile.objects.get(user_id=user)
+        #
+        # serializer = AvatarUpdateSerializer(data=request.data, instance=userprofile)
+        #
+        # if serializer.is_valid():
+        #     userprofile.avatar = serializer.validated_data.get('avatar')
+        #     userprofile.save()
+        #     #serializer.update(userprofile, serializer.validated_data)
+        #     return Response(
+        #             'Update successful',
+        #             status=status.HTTP_200_OK,
+        #     )
+        #
+        # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        #
+
+class UserPasswordChange(UpdateAPIView):
+    serializer_class = PasswordChangeSerializer
+
+    def get_object(self):
+        return self.request.user
+
+    def post(self, *args, **kwargs):
+        return self.update(self.request, *args, **kwargs)
+    def update(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        data = 0 # заполнить попробовать
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            if not self.object.check_password(serializer.data.get("passwordCurrent")):
+                return Response({"passwordCurrent": ["Wrong password"]}, status=status.HTTP_400_BAD_REQUEST)
+
+            elif not serializer.data.get("password") == serializer.data.get("passwordReply"):
+                return Response({'password': ['Passwords must match']}, status=status.HTTP_400_BAD_REQUEST)
+
+            self.object.set_password(serializer.data.get('passwordReply'))
+            self.object.save()
+
+            return Response('Update successful', status=status.HTTP_200_OK)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+        # print(request.data.get('passwordCurrent'))
+        # print(request.data.get('password'))
+        # print(request.data.get('passwordReply'))
+
 
 @api_view(["POST"])
 def sign_in(request: HttpRequest):
