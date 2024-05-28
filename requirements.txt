@@ -1,9 +1,15 @@
 asgiref==3.8.1
-diploma-frontend @ file:///Users/skillboxstudy/PycharmProjects/MeganoShop_django/shop_megano/diploma-frontend/dist/diploma-frontend-0.6.tar.gz#sha256=d8ffd5df7377a4555e2245e1b1ecfff83a92c3e17fdf61c84a996f63b9f1af9f
-Django==5.0.6
-django-rest-framework==0.1.0
+diploma-frontend @ file:///Users/skillboxstudy/PycharmProjects/MeganoShop_django/shop_megano/diploma-frontend/dist/diploma-frontend-0.6.tar.gz#sha256=f949ea337b1cdcf51e4b0061e3e7614f92b2cf876128f61f4864026de3ee84ff
+Django==4.2
+django-filter==24.2
 djangorestframework==3.15.1
+flake8==7.0.0
+gunicorn==22.0.0
+mccabe==0.7.0
+packaging==24.0
 pillow==10.3.0
+pycodestyle==2.11.1
+pyflakes==3.2.0
 setuptools==69.5.1
 sqlparse==0.5.0
-tzdata==2024.1
+typing_extensions==4.11.0
