@@ -1,0 +1,14 @@
+{
+  'passwordCurrent': request.data.get(
+  'passwordCurrent'
+  ),
+  'passwordReply': request.data.get(
+  'passwordReply'
+  ),
+
+
+
+  'password': request.data.get(
+  'password'
+  )
+}

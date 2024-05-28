@@ -1,6 +1,7 @@
 import json
 
 from django.contrib.auth import login, authenticate
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from django.http import HttpRequest, HttpResponse
@@ -9,7 +10,9 @@ from django.urls import reverse_lazy
 from rest_framework.views import APIView
 from rest_framework.generics import UpdateAPIView
 from django.contrib.auth.hashers import check_password, make_password
-
+from rest_framework.parsers import JSONParser
+from rest_framework.generics import GenericAPIView
+from rest_framework.mixins import UpdateModelMixin
 
 from .serializers import (
     LoginSerializer,
@@ -93,8 +96,7 @@ class UserAvatarUpdate(APIView):
         #
         # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         #
-
-class UserPasswordChange(UpdateAPIView):
+class UserPasswordChange(GenericAPIView, UpdateModelMixin):
     serializer_class = PasswordChangeSerializer
 
     def get_object(self):
@@ -104,27 +106,31 @@ class UserPasswordChange(UpdateAPIView):
         return self.update(self.request, *args, **kwargs)
     def update(self, request, *args, **kwargs):
         self.object = self.get_object()
-        data = 0 # заполнить попробовать
-        serializer = self.get_serializer(data=request.data)
+        data = {
+            'passwordCurrent': request.data.get('passwordCurrent'),
+            'passwordReply': request.data.get('passwordReply'),
+            'password': request.data.get('password')
+        }
+        print(request.data)
+        serializer = self.get_serializer(data=data)
+        print(serializer.is_valid)
         if serializer.is_valid():
-            if not self.object.check_password(serializer.data.get("passwordCurrent")):
-                return Response({"passwordCurrent": ["Wrong password"]}, status=status.HTTP_400_BAD_REQUEST)
+            if not self.object.check_password(
+                    serializer.data.get("currentPassword")
+            ):
+                return Response(
+                    {'Error': 'Wrong Current Password'},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
 
-            elif not serializer.data.get("password") == serializer.data.get("passwordReply"):
-                return Response({'password': ['Passwords must match']}, status=status.HTTP_400_BAD_REQUEST)
-
-            self.object.set_password(serializer.data.get('passwordReply'))
+            self.object.set_password(serializer.data.get('newPassword'))
             self.object.save()
-
-            return Response('Update successful', status=status.HTTP_200_OK)
+            return Response(
+                'Update successful',
+                status=status.HTTP_200_OK,
+            )
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-        # print(request.data.get('passwordCurrent'))
-        # print(request.data.get('password'))
-        # print(request.data.get('passwordReply'))
-
 
 @api_view(["POST"])
 def sign_in(request: HttpRequest):
@@ -154,7 +160,6 @@ def UserRegister(request: HttpRequest):
 
     user_data = json.loads(request.body)
     serializer = RegisterSerializer(data=user_data)
-
 
     if serializer.is_valid():
         user = serializer.save()
