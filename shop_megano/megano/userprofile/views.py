@@ -13,13 +13,11 @@ from rest_framework import status
 from .serializers import (
     LoginSerializer,
     RegisterSerializer,
-    AvatarUpdateSerializer,
-    ProfileUpdateSerializer,
-    PasswordChangeSerializer,
+    ProfileSerializer,
+    PasswordSerializer,
     AvatarSerializer
 )
 
-from .models import UserProfile
 
 @api_view(["POST"])
 def UserLogin(request: Request):
@@ -65,7 +63,7 @@ class UserProfileDetails(APIView):
     Класс для отображения профиля пользователя, а так же его заполнение
     """
 
-    def post(self, request):
+    def post(self, request: Request):
         """
         Функция обработчик для POST-запроса.
         Обновление данных пользователя
@@ -80,10 +78,11 @@ class UserProfileDetails(APIView):
             'phone': request.data.get('phone'),
         }
 
-        serializer = ProfileUpdateSerializer(data=data)
+        serializer = ProfileSerializer(data=data)
 
         if serializer.is_valid():
             serializer.update(user, data)
+
             return Response(serializer.data, status=200)
         else:
             return Response(serializer.errors, status=400)
@@ -100,7 +99,7 @@ class UserProfileDetails(APIView):
 
             data = {
                 'fullName': user.userprofile.fullName,
-                'email': user.email,
+                'email': user.userprofile.email,
                 'phone': user.userprofile.phone,
             }
             if user.userprofile.avatar:
@@ -113,15 +112,23 @@ class UserProfileDetails(APIView):
 
 
 class UserAvatarUpdate(APIView):
+    """
+    Класс view изменения аватарки профиля у пользователя.
+    """
+    def post(self, request: Request) -> Response:
+        """
+        Функция принятия POST-запроса.
+        Принимает объект user и файл с отправляемого запроса.
+        :param request:
+        :return:
+        """
+        user = request.user
+        data = request.data
 
-    def post(self, request: Request, ) -> Response:
-        user = request.user.pk
-        profile = UserProfile.objects.get(user_id=user)
-
-        serializer = AvatarSerializer(instance=profile, data=request.data)
+        serializer = AvatarSerializer(data=data)
 
         if serializer.is_valid():
-            serializer.save()
+            serializer.update(user, data)
 
             return Response(
                 'Успешно обновлено!',
@@ -129,53 +136,38 @@ class UserAvatarUpdate(APIView):
             )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
-# def post(self, request: Request):
-    #     user = request.user.pk
-    #     userprofile = UserProfile.objects.get(user_id=user)
-    #
-    #     serializer = AvatarUpdateSerializer(data=request.data, instance=userprofile)
-    #
-    #     if serializer.is_valid():
-    #         userprofile.avatar = serializer.validated_data.get('avatar')
-    #         userprofile.save()
-    #         #serializer.update(userprofile, serializer.validated_data)
-    #         return Response(
-    #                 'Update successful',
-    #                 status=status.HTTP_200_OK,
-    #         )
-    #
-    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-        # user = request.user
-        #
-        # data = {
-        #     'src': request.data.get('src'),
-        #     'alt': request.data.get('alt')
-        # }
-        #
-        # serializer = AvatarUpdateSerializer(instance=user, data=data)
-        #
-        # if serializer.is_valid():
-        #     serializer.update(user, data)
-        #     return Response(serializer.data, status=200)
-        # else:
-        #     return Response(serializer.errors, status=400)
-
-
-
-
 class UserPasswordChange(GenericAPIView, UpdateModelMixin):
-    serializer_class = PasswordChangeSerializer
+    """
+    Класс view для изменения пароля пользователя.
+    """
+    serializer_class = PasswordSerializer
 
     def get_object(self):
+        """
+        Функция для принития обьекта пользователя.
+        :return:
+        """
         if self.request.user.is_authenticated:
             return self.request.user
 
+
     def post(self, *args, **kwargs):
+        """
+        Функция для принятия данных с POST-запроса.
+        :param args:
+        :param kwargs:
+        :return:
+        """
         return self.update(self.request, *args, **kwargs)
 
     def update(self, request, *args, **kwargs):
+        """
+        Функция для изменения пароля пользователя.
+        :param request:
+        :param args:
+        :param kwargs:
+        :return:
+        """
         self.object_user = self.get_object()
 
         data = {
