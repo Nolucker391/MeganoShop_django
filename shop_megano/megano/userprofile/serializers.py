@@ -34,7 +34,7 @@ class LoginSerializer(serializers.Serializer):
 
 class RegisterSerializer(serializers.Serializer):
     """
-    Класс сериализатор для регистрации пользователя на сайте
+    Класс сериализатор для регистрации пользователя на сайте.
 
     """
     username = serializers.CharField(max_length=150)
@@ -120,7 +120,7 @@ class AvatarSerializer(serializers.Serializer):
             return instance
 
         else:
-            return Response('Неправильный формат файла.', status=400)
+            return Response('Неправильный формат файла.', status=500)
 
 
 class PasswordSerializer(serializers.Serializer):

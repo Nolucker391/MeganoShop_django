@@ -34,7 +34,7 @@ def UserLogin(request: Request):
 
         return Response('Вы успешно авторизовались!', status=200)
     else:
-        return Response(data=serializer.errors, status=400)
+        return Response(data=serializer.errors, status=500)
 
 
 @api_view(["POST"])
@@ -55,7 +55,7 @@ def UserRegister(request: Request):
             status=200,
         )
     else:
-        return Response(serializer.errors, status=400)
+        return Response(serializer.errors, status=500)
 
 
 class UserProfileDetails(APIView):
@@ -95,6 +95,7 @@ class UserProfileDetails(APIView):
         :return:
         """
         if request.user.is_authenticated:
+
             user = request.user
 
             data = {
@@ -107,6 +108,7 @@ class UserProfileDetails(APIView):
                     'src': user.userprofile.avatar.url,
                     'alt': user.userprofile.avatar.name,
                 }
+
             return Response(data=data, status=200)
         return Response(status=400)
 
@@ -180,7 +182,7 @@ class UserPasswordChange(GenericAPIView, UpdateModelMixin):
         if serializer.is_valid():
             if not self.object_user.check_password(serializer.data.get("current_password")):
                 return Response(
-                    {'Error': 'Wrong Current Password'},
+                    {'Error': 'Не верно указан текущий пароль.'},
                     status=status.HTTP_400_BAD_REQUEST,
                 )
 

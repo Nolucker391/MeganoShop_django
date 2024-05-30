@@ -29,13 +29,3 @@ urlpatterns = [
 Если запустить сервер разработки: `python manage.py runserver`, то по адресу `127.0.0.1:8000` должна открыться стартовая страница интернет-магазина:
 ![image](./root-page.png)
 
-# Детали подключаемого приложения `frontend` (Для проверяющих преподавателей)
-Приложение служит только для отрисовки шаблонов из `templates/frontend`, поэтому в `urls.py` напрямую 
-используются `TemplateView` из стандартной поставки Django.
-
-В качестве frontend фреймворка был использован Vue3, который подключается в базовом шаблоне `templates/frontend/base.html`:
-```html
-<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-```
-JS скрипт `static/frontend/assets/js/app.js` содержит реализацию Vue объекта, а все остальные JS скрипты из 
-директории `static/frontend/assets/js` реализуют объекты примеси для соответствующей страницы проекта.

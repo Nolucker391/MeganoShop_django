@@ -180,7 +180,7 @@
                   <div v-for="product in products" class="Cart-product">
                     <div class="Cart-block Cart-block_row">
                       <div class="Cart-block Cart-block_pict">
-                        <a class="Cart-pict" :href="`/product/${product.id}`">
+                        <a class="Cart-pict" :href="`/product/${product.id}/`">
                           <img class="Cart-img" :src="product.images.length ? product.images[0].src : ''" alt="product.images.length ? product.images[0].alt : product.title"/>
                         </a>
                       </div>

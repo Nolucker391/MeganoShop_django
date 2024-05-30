@@ -772,6 +772,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  white-space: nowrap;
   background: #0063d1;
   color: #fff;
   font-size: 22px;

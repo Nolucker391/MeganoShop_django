@@ -32,6 +32,8 @@ paths:
       responses:
         '200':
           description: successful operation
+        '500':
+          description: unsuccessful operation
 
 
   /sign-up:
@@ -61,6 +63,8 @@ paths:
       responses:
         '200':
           description: successful operation
+        '500':
+          description: unsuccessful operation
 
   /sign-out:
     post:
@@ -494,9 +498,12 @@ paths:
               xml:
                 name: password
               properties:
-                password:
+                currentPassword:
                   type: string
-                  example: 'QWEWETEW12312'
+                  example: 'oldPass123'
+                newPassword:
+                  type: string
+                  example: 'newPass321'
       responses:
         '200':
           description: successful operation
@@ -505,14 +512,10 @@ paths:
     post:
       tags:
         - profile
-      description: 'update user avatar'
+      description: 'update user avatar (request.FILES["avatar"] in Django)'
       responses:
         '200':
           description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Image'
 
   /tags:
     get:
@@ -660,10 +663,10 @@ components:
           example: 200.67
         dateFrom:
           type: string
-          example: '2023-05-08'
+          example: '05-08'
         dateTo:
           type: string
-          example: '2023-05-20'
+          example: '05-20'
         title:
           type: string
           example: 'video card'
@@ -672,9 +675,7 @@ components:
           xml:
             wrapped: true
           items:
-            type: string
-            xml:
-              name: imageUrl
+            $ref: '#/components/schemas/Image'
     ProductFull:
       required:
         - id
@@ -718,9 +719,7 @@ components:
           xml:
             wrapped: true
           items:
-            type: string
-            xml:
-              name: imageUrl
+            $ref: '#/components/schemas/Image'
         tags:
           type: array
           xml:

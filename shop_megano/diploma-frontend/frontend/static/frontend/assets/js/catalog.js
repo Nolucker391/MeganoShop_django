@@ -30,7 +30,7 @@ var mix = {
             this.getCatalogs()
         },
         getTags() {
-            this.getData('/api/tags/', { category: this.category })
+            this.getData('/api/tags', { category: this.category })
                 .then(data => this.topTags = data.map(tag => ({
                     ...tag,
                     selected: false
@@ -52,7 +52,7 @@ var mix = {
             if (max !== 50000) {
                 this.filter.maxPrice = max
             }
-            this.getData("/api/catalog/", {
+            this.getData("/api/catalog", {
                 filter: {
                     ...this.filter,
                     minPrice: min,
@@ -81,7 +81,7 @@ var mix = {
             :  null
 
         if(location.pathname.startsWith('/catalog/')) {
-            const category = location.pathname.replace('/catalog/', '')
+            const category = location.pathname.replace('/catalog/', '').replace('/', '')
             this.category = category.length ? Number(category) : null
         }
 

@@ -1,5 +1,4 @@
 asgiref==3.8.1
-diploma-frontend @ file:///Users/skillboxstudy/PycharmProjects/MeganoShop_django/shop_megano/diploma-frontend/dist/diploma-frontend-0.6.tar.gz#sha256=f949ea337b1cdcf51e4b0061e3e7614f92b2cf876128f61f4864026de3ee84ff
 Django==4.2
 django-filter==24.2
 djangorestframework==3.15.1
