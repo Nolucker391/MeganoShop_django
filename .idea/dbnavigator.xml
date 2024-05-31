@@ -31,8 +31,10 @@
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
     <filter-actions connection-id="25ac53c1-da77-41d4-9eb1-107a56547f9a" dataset="main.userprofile_userprofile" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="25ac53c1-da77-41d4-9eb1-107a56547f9a" dataset="main.product_productimage" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="25ac53c1-da77-41d4-9eb1-107a56547f9a" dataset="main.auth_user" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="25ac53c1-da77-41d4-9eb1-107a56547f9a" dataset="main.auth_user_groups" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="25ac53c1-da77-41d4-9eb1-107a56547f9a" dataset="main.product_product" active-filter-id="EMPTY_FILTER" />
   </component>
   <component name="DBNavigator.Project.ExecutionManager">
     <retain-sticky-names value="false" />

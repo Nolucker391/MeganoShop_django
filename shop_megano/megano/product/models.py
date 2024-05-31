@@ -1,5 +1,33 @@
 from django.db import models
 
+def product_images_directory_path(instance: 'ProductImage', filename: str) -> str:
+    return (f'products/'
+            f'product_{instance.product.pk}/'
+            f'{filename}')
+
+
+class CategoryProduct(models.Model):
+    """
+    Класс модель категории продукта.
+    """
+    class Meta:
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
+        ordering = ['pk', 'title']
+
+    title = models.CharField(max_length=40, db_index=True)
+    parent = models.ForeignKey(
+        'self',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name='subcategories',
+    )
+    favourite = models.BooleanField(default=False)
+
+    def __str__(self) -> str:
+        return f"{self.title!r}"
+
 class Product(models.Model):
     """
     Класс описывающий модель продукта
@@ -7,19 +35,131 @@ class Product(models.Model):
     class Meta:
         verbose_name = "Product"
         verbose_name_plural = 'Products'
-        ordering = ['pk', 'name']
+        ordering = ['pk', 'title']
 
     def __str__(self):
-        return self.name
+        return self.title
 
-    name = models.CharField(max_length=200, null=False, blank=True) # название
+    title = models.CharField(max_length=200, null=False, blank=True) # название
     description = models.CharField(max_length=200, null=False, blank=True) # описание
     price = models.DecimalField(default=1, max_digits=8, decimal_places=2, null=False) # цена
-    count = models.IntegerField(default=1, null=False) # количество
-    count_reviews = models.IntegerField(default=0, null=False) # количество отзывов
+    count = models.IntegerField(default=0, null=False) # количество отзывов
     rating = models.DecimalField(default=0, max_digits=5, decimal_places=2, null=False) # рейтинг продукта
-    created_date = models.DateTimeField(auto_now_add=True, null=False) # дата создания
+    date = models.DateTimeField(auto_now_add=True, null=False) # дата создания
     archived = models.BooleanField(default=False) # архив
     freeDelivery = models.BooleanField(default=True) # бесплатная доставка
-    # категория, теги, изображения
+    category = models.ForeignKey(
+        CategoryProduct,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='products',
+    )
 
+class ProductImage(models.Model):
+    class Meta:
+        verbose_name = 'Product image'
+        verbose_name_plural = 'Product images'
+        ordering = ['pk', ]
+
+    name = models.CharField(
+        max_length=100,
+        null=False,
+        blank=True,
+    )
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name='images',
+        verbose_name='product',
+    )
+    image = models.ImageField(
+        upload_to=product_images_directory_path,
+    )
+
+    def src(self):
+        return self.image
+
+    def __str__(self):
+        return f'{self.image}'
+
+class Tag(models.Model):
+    """Модель тэга продукта"""
+
+    class Meta:
+        verbose_name = 'Tag'
+        verbose_name_plural = 'Tags'
+        ordering = ['pk', 'name']
+
+    name = models.CharField(
+        max_length=20,
+        null=False,
+        blank=True,
+    )
+    tags = models.ManyToManyField(
+        Product,
+        related_name='tags',
+    )
+
+    def __str__(self) -> str:
+        return f'{self.name!r}'
+
+class Review(models.Model):
+    """Модель отзыва на продукт"""
+
+    class Meta:
+        verbose_name = 'Review'
+        verbose_name_plural = 'Reviews'
+        ordering = ['pk', 'rate']
+
+    author = models.CharField(max_length=100)
+    email = models.EmailField(max_length=200)
+    text = models.TextField()
+    rate = models.PositiveSmallIntegerField(
+        default=3,
+        blank=False,
+    )
+    date = models.DateTimeField(
+        auto_now_add=True,
+        null=False,
+    )
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.PROTECT,
+        related_name='reviews'
+    )
+
+    def __str__(self) -> str:
+        return f"{self.author!r}: {self.product.title!r}"
+
+
+class Sale(models.Model):
+    """Модель акции на продукт"""
+
+    class Meta:
+        verbose_name = 'Sale'
+        verbose_name_plural = 'Sales'
+        ordering = ['pk']
+
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name='sales'
+    )
+    salePrice = models.DecimalField(
+        default=1,
+        max_digits=8,
+        decimal_places=2,
+        null=False,
+    )
+    dateFrom = models.DateField(default='')
+    dateTo = models.DateField(
+        blank=True,
+        null=False,
+    )
+
+    def price(self):
+        return self.product.price
+
+    def title(self):
+        return self.product.title
