@@ -48,6 +48,8 @@ class Product(models.Model):
     date = models.DateTimeField(auto_now_add=True, null=False) # дата создания
     archived = models.BooleanField(default=False) # архив
     freeDelivery = models.BooleanField(default=True) # бесплатная доставка
+    limited_edition = models.BooleanField(default=False)
+    fullDescription = models.TextField(null=False,blank=True)
     category = models.ForeignKey(
         CategoryProduct,
         on_delete=models.SET_NULL,
@@ -55,6 +57,7 @@ class Product(models.Model):
         blank=True,
         related_name='products',
     )
+    page_number = models.IntegerField(null=True, blank=True)
 
 class ProductImage(models.Model):
     class Meta:

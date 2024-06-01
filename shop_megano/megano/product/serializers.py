@@ -44,6 +44,7 @@ class ProductSerializer(serializers.ModelSerializer):
             'date',
             'title',
             'description',
+            'fullDescription',
             'freeDelivery',
             'images',
             'tags',

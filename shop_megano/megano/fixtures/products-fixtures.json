@@ -7,11 +7,14 @@
       "description": "Смартфон Apple iPhone 13 128 ГБ зеленый",
       "price": "111.25",
       "count": 5,
-      "rating": "0.00",
+      "rating": "5.00",
       "date": "2024-05-31T17:20:38.648Z",
       "archived": false,
       "freeDelivery": true,
-      "category": null
+      "limited_edition": false,
+      "fullDescription": "Дата выпуска: сентябрь 2021 года.\r\nОсобенности: A15 Bionic чип, улучшенная двойная камера, более яркий дисплей Super Retina XDR, дольше работающий аккумулятор по сравнению с предыдущими моделями, поддержка 5G.",
+      "category": null,
+      "page_number": 4
     }
   },
   {
@@ -26,7 +29,10 @@
       "date": "2024-05-31T17:22:00.150Z",
       "archived": false,
       "freeDelivery": true,
-      "category": null
+      "limited_edition": false,
+      "fullDescription": "Дата выпуска: сентябрь 2022 года.\r\nОсобенности: Предполагается улучшение процессора, камеры и других технологий по сравнению с iPhone 13, включая новые функции безопасности и возможно новый дизайн.",
+      "category": null,
+      "page_number": 1
     }
   },
   {
@@ -41,7 +47,10 @@
       "date": "2024-05-31T17:22:18.515Z",
       "archived": false,
       "freeDelivery": true,
-      "category": null
+      "limited_edition": false,
+      "fullDescription": "Дата выпуска: сентябрь 2023 года.\r\nОсобенности: На момент моего последнего обновления информации, детали о iPhone 15 не были доступны. Ожидается, что он будет включать в себя последние инновации и технологические достижения Apple.",
+      "category": null,
+      "page_number": 2
     }
   },
   {
@@ -56,7 +65,10 @@
       "date": "2024-05-31T17:24:37.836Z",
       "archived": false,
       "freeDelivery": true,
-      "category": null
+      "limited_edition": false,
+      "fullDescription": "Дата выпуска: ноябрь 2020 года.\r\nОсобенности: Первый MacBook Air на базе собственного чипа Apple M1, который значительно улучшил производительность и эффективность энергопотребления по сравнению с предыдущими моделями на Intel. Он также предложил до 18 часов работы батареи, улучшенную графику и возможность запускаать приложения для iOS.",
+      "category": null,
+      "page_number": 3
     }
   },
   {
@@ -67,11 +79,14 @@
       "description": "Ноутбук Apple MacBook Air 13.6\", M2 512 GB, 8 core CPU, Midnight",
       "price": "1389.90",
       "count": 5,
-      "rating": "0.00",
+      "rating": "5.00",
       "date": "2024-05-31T17:27:36.252Z",
       "archived": false,
       "freeDelivery": true,
-      "category": null
+      "limited_edition": false,
+      "fullDescription": "MacBook air с чипом M2 представляет собой обновленную версию популярного ноутбука Apple, оснащенную новым процессором M2, который является вторым поколением чипов серии M от Apple. Этот чип предлагает улучшенные характеристики производительности и энергоэффективности по сравнению с его предшественником M1, включая восьмиядерный процессор и до 10-ядерную графическую подсистему. Модель доступна в четырех цветах: серебристый, космический серый, полночь и звездное светило.",
+      "category": null,
+      "page_number": 1
     }
   },
   {
@@ -86,7 +101,10 @@
       "date": "2024-05-31T17:31:01.252Z",
       "archived": false,
       "freeDelivery": true,
-      "category": null
+      "limited_edition": false,
+      "fullDescription": "Планшет Apple iPad 10.9-inch Wi-Fi 64GB Silver 2022 представляет собой обновленный базовый вариант линейки iPad, который вводит несколько значительных изменений по сравнению с предыдущим поколением.",
+      "category": null,
+      "page_number": 3
     }
   },
   {
@@ -101,7 +119,10 @@
       "date": "2024-05-31T17:58:44.910Z",
       "archived": false,
       "freeDelivery": true,
-      "category": null
+      "limited_edition": false,
+      "fullDescription": "",
+      "category": null,
+      "page_number": 3
     }
   },
   {
@@ -116,7 +137,10 @@
       "date": "2024-05-31T18:01:41.416Z",
       "archived": false,
       "freeDelivery": true,
-      "category": null
+      "limited_edition": false,
+      "fullDescription": "",
+      "category": null,
+      "page_number": 3
     }
   },
   {
@@ -124,14 +148,197 @@
     "pk": 9,
     "fields": {
       "title": "AirPods Max",
-      "description": "Беспроводные наушники Apple AirPods Max (Серебристый)",
+      "description": "Беспроводные наушники Apple AirPods Max (Голубое небо)",
       "price": "327.00",
       "count": 5,
       "rating": "0.00",
       "date": "2024-05-31T18:05:07.457Z",
       "archived": false,
       "freeDelivery": true,
-      "category": null
+      "limited_edition": false,
+      "fullDescription": "",
+      "category": null,
+      "page_number": 4
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 10,
+    "fields": {
+      "title": "Apple AirPods Pro 2",
+      "description": "Наушники Apple AirPods Pro 2 MagSafe Case USB type-c, 1987656",
+      "price": "116.00",
+      "count": 5,
+      "rating": "0.00",
+      "date": "2024-06-01T11:33:13.119Z",
+      "archived": false,
+      "freeDelivery": true,
+      "limited_edition": false,
+      "fullDescription": "",
+      "category": null,
+      "page_number": 3
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 11,
+    "fields": {
+      "title": "Apple Watch 9",
+      "description": "Смарт-часы Apple Watch Series 9 41 мм сияющая звезда M/L, спортивный ремешок",
+      "price": "402.00",
+      "count": 5,
+      "rating": "0.00",
+      "date": "2024-06-01T11:37:43.320Z",
+      "archived": false,
+      "freeDelivery": true,
+      "limited_edition": false,
+      "fullDescription": "",
+      "category": null,
+      "page_number": 4
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 12,
+    "fields": {
+      "title": "Apple Watch SE 2023",
+      "description": "Смарт-часы Apple Watch SE 2023 GPS 40mm Midnight Case with Midnight Sport Band M/L",
+      "price": "212.00",
+      "count": 5,
+      "rating": "0.00",
+      "date": "2024-06-01T11:40:28.149Z",
+      "archived": false,
+      "freeDelivery": true,
+      "limited_edition": false,
+      "fullDescription": "",
+      "category": null,
+      "page_number": 4
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 13,
+    "fields": {
+      "title": "Apple Watch Ultra",
+      "description": "Смарт-часы Apple Watch Ultra 49mm Titanium Orange Alpine Large",
+      "price": "756.00",
+      "count": 5,
+      "rating": "2.00",
+      "date": "2024-06-01T11:42:58.028Z",
+      "archived": false,
+      "freeDelivery": true,
+      "limited_edition": false,
+      "fullDescription": "",
+      "category": null,
+      "page_number": 1
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 14,
+    "fields": {
+      "title": "Apple Vision Pro 1TB",
+      "description": "Очки виртуальной реальности Apple Vision Pro 1TB",
+      "price": "5556.00",
+      "count": 2,
+      "rating": "0.00",
+      "date": "2024-06-01T11:46:56.480Z",
+      "archived": false,
+      "freeDelivery": true,
+      "limited_edition": false,
+      "fullDescription": "",
+      "category": null,
+      "page_number": 1
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 15,
+    "fields": {
+      "title": "Wi-Fi Apple Time Capsule",
+      "description": "Wi-Fi роутер Time Capsule Apple Airport Time Capsule 2TB (ME177RU/A)",
+      "price": "437.00",
+      "count": 5,
+      "rating": "0.00",
+      "date": "2024-06-01T11:57:26.677Z",
+      "archived": false,
+      "freeDelivery": true,
+      "limited_edition": false,
+      "fullDescription": "",
+      "category": null,
+      "page_number": 2
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 16,
+    "fields": {
+      "title": "set-top box Apple Apple TV",
+      "description": "Телевизионная приставка Apple MXGY2RS/A Black",
+      "price": "222.00",
+      "count": 5,
+      "rating": "0.00",
+      "date": "2024-06-01T12:02:20.338Z",
+      "archived": false,
+      "freeDelivery": true,
+      "limited_edition": false,
+      "fullDescription": "",
+      "category": null,
+      "page_number": 2
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 17,
+    "fields": {
+      "title": "TV Sony KD UHD 4K",
+      "description": "Телевизор Sony KD-65X85L, 65\"(165 см), UHD 4K",
+      "price": "2100.00",
+      "count": 5,
+      "rating": "2.00",
+      "date": "2024-06-01T12:07:56.605Z",
+      "archived": false,
+      "freeDelivery": true,
+      "limited_edition": false,
+      "fullDescription": "",
+      "category": null,
+      "page_number": 2
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 18,
+    "fields": {
+      "title": "Sony PlayStation 5 White",
+      "description": "Приставка игровая Sony PlayStation 5 Blu-Ray CFI-1218A, 825Gb, White",
+      "price": "637.00",
+      "count": 5,
+      "rating": "5.00",
+      "date": "2024-06-01T12:12:20.328Z",
+      "archived": false,
+      "freeDelivery": true,
+      "limited_edition": false,
+      "fullDescription": "",
+      "category": null,
+      "page_number": 1
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 19,
+    "fields": {
+      "title": "HYPERPC Cyber",
+      "description": "Игровой компьютер HYPERPC Cyber",
+      "price": "1537.00",
+      "count": 5,
+      "rating": "0.00",
+      "date": "2024-06-01T12:17:53.432Z",
+      "archived": false,
+      "freeDelivery": true,
+      "limited_edition": true,
+      "fullDescription": "",
+      "category": null,
+      "page_number": 2
     }
   },
   {
@@ -411,6 +618,528 @@
       "name": "imac",
       "product": 8,
       "image": "products/product_8/imac24_3.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 32,
+    "fields": {
+      "name": "airmax",
+      "product": 9,
+      "image": "products/product_9/aimax.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 33,
+    "fields": {
+      "name": "airmax",
+      "product": 9,
+      "image": "products/product_9/aimax1.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 34,
+    "fields": {
+      "name": "airmax",
+      "product": 9,
+      "image": "products/product_9/aimax2.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 35,
+    "fields": {
+      "name": "airman",
+      "product": 9,
+      "image": "products/product_9/aimax3.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 36,
+    "fields": {
+      "name": "AirPods Pro",
+      "product": 10,
+      "image": "products/product_10/1.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 37,
+    "fields": {
+      "name": "AirPods Pro",
+      "product": 10,
+      "image": "products/product_10/2.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 38,
+    "fields": {
+      "name": "AirPods Pro",
+      "product": 10,
+      "image": "products/product_10/3.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 39,
+    "fields": {
+      "name": "AirPods Pro",
+      "product": 10,
+      "image": "products/product_10/4.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 40,
+    "fields": {
+      "name": "AirPods Pro",
+      "product": 10,
+      "image": "products/product_10/5.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 41,
+    "fields": {
+      "name": "AirPods Pro",
+      "product": 10,
+      "image": "products/product_10/6.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 42,
+    "fields": {
+      "name": "AirPods Pro",
+      "product": 10,
+      "image": "products/product_10/7.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 43,
+    "fields": {
+      "name": "AppleWatch9",
+      "product": 11,
+      "image": "products/product_11/AppleWatch9.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 44,
+    "fields": {
+      "name": "AppleWatch9",
+      "product": 11,
+      "image": "products/product_11/AppleWatch9_1.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 45,
+    "fields": {
+      "name": "AppleWatch9",
+      "product": 11,
+      "image": "products/product_11/AppleWatch9_2.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 46,
+    "fields": {
+      "name": "Apple Watch SE 2023",
+      "product": 12,
+      "image": "products/product_12/Apple_Watch_SE_2023.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 47,
+    "fields": {
+      "name": "Apple Watch SE 2023",
+      "product": 12,
+      "image": "products/product_12/Apple_Watch_SE_2023_1.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 48,
+    "fields": {
+      "name": "Apple Watch SE 2023",
+      "product": 12,
+      "image": "products/product_12/Apple_Watch_SE_2023_2.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 49,
+    "fields": {
+      "name": "Apple Watch Ultra",
+      "product": 13,
+      "image": "products/product_13/Apple_Watch_Ultra.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 50,
+    "fields": {
+      "name": "Apple Watch Ultra",
+      "product": 13,
+      "image": "products/product_13/Apple_Watch_Ultra_1.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 51,
+    "fields": {
+      "name": "Apple Watch Ultra",
+      "product": 13,
+      "image": "products/product_13/Apple_Watch_Ultra_2.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 52,
+    "fields": {
+      "name": "Apple Watch Ultra",
+      "product": 13,
+      "image": "products/product_13/Apple_Watch_Ultra_3.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 53,
+    "fields": {
+      "name": "Apple Watch Ultra",
+      "product": 13,
+      "image": "products/product_13/Apple_Watch_Ultra_4.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 54,
+    "fields": {
+      "name": "Apple Watch Ultra",
+      "product": 13,
+      "image": "products/product_13/Apple_Watch_Ultra_5.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 55,
+    "fields": {
+      "name": "Apple Vision Pro 1TB",
+      "product": 14,
+      "image": "products/product_14/Apple_Vision_Pro_1TB.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 56,
+    "fields": {
+      "name": "Apple Vision Pro 1TB",
+      "product": 14,
+      "image": "products/product_14/Apple_Vision_Pro_1TB_1.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 57,
+    "fields": {
+      "name": "Apple Vision Pro 1TB",
+      "product": 14,
+      "image": "products/product_14/Apple_Vision_Pro_1TB_2.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 58,
+    "fields": {
+      "name": "Apple Vision Pro 1TB",
+      "product": 14,
+      "image": "products/product_14/Apple_Vision_Pro_1TB_3.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 59,
+    "fields": {
+      "name": "Apple Vision Pro 1TB",
+      "product": 14,
+      "image": "products/product_14/Apple_Vision_Pro_1TB_4.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 60,
+    "fields": {
+      "name": "Apple Vision Pro 1TB",
+      "product": 14,
+      "image": "products/product_14/Apple_Vision_Pro_1TB_5.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 61,
+    "fields": {
+      "name": "Apple Vision Pro 1TB",
+      "product": 14,
+      "image": "products/product_14/Apple_Vision_Pro_1TB_6.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 62,
+    "fields": {
+      "name": "Wi-Fi Apple Time Capsule",
+      "product": 15,
+      "image": "products/product_15/Wi-Fi_Apple_Time_Capsule.jpeg"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 63,
+    "fields": {
+      "name": "Wi-Fi Apple Time Capsule",
+      "product": 15,
+      "image": "products/product_15/Wi-Fi_Apple_Time_Capsule_1.jpeg"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 64,
+    "fields": {
+      "name": "Wi-Fi Apple Time Capsule",
+      "product": 15,
+      "image": "products/product_15/Wi-Fi_Apple_Time_Capsule2.jpeg"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 65,
+    "fields": {
+      "name": "Wi-Fi Apple Time Capsule",
+      "product": 15,
+      "image": "products/product_15/Wi-Fi_Apple_Time_Capsule3.jpeg"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 66,
+    "fields": {
+      "name": "set-top box Apple Apple TV",
+      "product": 16,
+      "image": "products/product_16/set-top_box_Apple_Apple_TV_1.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 67,
+    "fields": {
+      "name": "set-top box Apple Apple TV",
+      "product": 16,
+      "image": "products/product_16/set-top_box_Apple_Apple_TV_.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 68,
+    "fields": {
+      "name": "set-top box Apple Apple TV",
+      "product": 16,
+      "image": "products/product_16/set-top_box_Apple_Apple_TV_2.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 69,
+    "fields": {
+      "name": "set-top box Apple Apple TV",
+      "product": 16,
+      "image": "products/product_16/set-top_box_Apple_Apple_TV_4.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 70,
+    "fields": {
+      "name": "set-top box Apple Apple TV",
+      "product": 16,
+      "image": "products/product_16/set-top_box_Apple_Apple_TV_5.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 71,
+    "fields": {
+      "name": "TV Sony KD UHD 4K",
+      "product": 17,
+      "image": "products/product_17/TV_Sony_KD_UHD_4K.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 72,
+    "fields": {
+      "name": "TV Sony KD UHD 4K",
+      "product": 17,
+      "image": "products/product_17/TV_Sony_KD_UHD_4K1.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 73,
+    "fields": {
+      "name": "TV Sony KD UHD 4K",
+      "product": 17,
+      "image": "products/product_17/TV_Sony_KD_UHD_4K2.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 74,
+    "fields": {
+      "name": "TV Sony KD UHD 4K",
+      "product": 17,
+      "image": "products/product_17/TV_Sony_KD_UHD_4K3.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 75,
+    "fields": {
+      "name": "TV Sony KD UHD 4K",
+      "product": 17,
+      "image": "products/product_17/TV_Sony_KD_UHD_4K5.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 76,
+    "fields": {
+      "name": "Sony PlayStation 5 White",
+      "product": 18,
+      "image": "products/product_18/Sony_PlayStation_5_White.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 77,
+    "fields": {
+      "name": "Sony PlayStation 5 White",
+      "product": 18,
+      "image": "products/product_18/Sony_PlayStation_5_White1.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 78,
+    "fields": {
+      "name": "Sony PlayStation 5 White",
+      "product": 18,
+      "image": "products/product_18/Sony_PlayStation_5_White2.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 79,
+    "fields": {
+      "name": "Sony PlayStation 5 White",
+      "product": 18,
+      "image": "products/product_18/Sony_PlayStation_5_White3.webp"
+    }
+  },
+  {
+    "model": "product.productimage",
+    "pk": 80,
+    "fields": {
+      "name": "HYPERPC Cyber",
+      "product": 19,
+      "image": "products/product_19/HYPERPC_Cyber_.webp"
+    }
+  },
+  {
+    "model": "product.tag",
+    "pk": 1,
+    "fields": {
+      "name": "Phone",
+      "tags": [
+        1,
+        2,
+        3
+      ]
+    }
+  },
+  {
+    "model": "product.tag",
+    "pk": 2,
+    "fields": {
+      "name": "MacBook",
+      "tags": [
+        4,
+        5
+      ]
+    }
+  },
+  {
+    "model": "product.tag",
+    "pk": 3,
+    "fields": {
+      "name": "watches",
+      "tags": [
+        11,
+        12,
+        13
+      ]
+    }
+  },
+  {
+    "model": "product.tag",
+    "pk": 4,
+    "fields": {
+      "name": "PS5",
+      "tags": [
+        18
+      ]
+    }
+  },
+  {
+    "model": "product.review",
+    "pk": 1,
+    "fields": {
+      "author": "author",
+      "email": "z@mail.ru",
+      "text": "text",
+      "rate": 5,
+      "date": "2024-06-01T15:47:56.176Z",
+      "product": 1
+    }
+  },
+  {
+    "model": "product.review",
+    "pk": 2,
+    "fields": {
+      "author": "author",
+      "email": "22",
+      "text": "text",
+      "rate": 5,
+      "date": "2024-06-01T15:49:16.362Z",
+      "product": 5
+    }
+  },
+  {
+    "model": "product.review",
+    "pk": 3,
+    "fields": {
+      "author": "1",
+      "email": "",
+      "text": "a",
+      "rate": 5,
+      "date": "2024-06-01T15:58:30.357Z",
+      "product": 18
     }
   }
 ]

@@ -1,11 +1,18 @@
+import datetime
+
 from django.shortcuts import render
+from rest_framework.generics import get_object_or_404
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.db.models import Count
+from rest_framework.mixins import CreateModelMixin
 
-from .models import Product, CategoryProduct
-from .serializers import ProductSerializer
+
+from .models import Product, CategoryProduct, Review, Tag
+from .serializers import ProductSerializer, ReviewSerializer, TagSerializer
+
 
 class ProductsList(APIView):
     """
@@ -46,10 +53,14 @@ class ProductsList(APIView):
         else:
             sortType = ''
 
+        current_page = request.GET.get('currentPage')
+
         products_list = Product.objects.filter(
+            page_number=current_page,
             price__range=(min_price, max_price),
             count__gt=0,
         )
+
         if category:
             if category.startswith('?filter='):
                 if name is None:
@@ -97,7 +108,10 @@ class ProductsList(APIView):
 
         serializer = ProductSerializer(products_list, many=True)
 
-        return Response({'items': serializer.data})
+        return Response({'items': serializer.data,
+                         'lastPage': 4})
+
+
 
 class ProductDetails(APIView):
     def get(self, request: Request, pk: int):
@@ -106,3 +120,64 @@ class ProductDetails(APIView):
 
         return Response(serializer.data)
 
+class PopularProductsList(APIView):
+    """
+    Класс
+    """
+    def get(self, request: Request):
+        popular_product_to_reviews = Product.objects.filter(
+            archived=False,
+        ).annotate(
+            count_reviews=Count('reviews'),
+        ).order_by('-count_reviews')[:4]
+
+        serializer = ProductSerializer(popular_product_to_reviews, many=True)
+
+        return Response(serializer.data)
+
+class LimitedEditionList(APIView):
+    def get(self, request: Request):
+        products = Product.objects.filter(limited_edition=True)
+
+        serializer = ProductSerializer(products, many=True)
+
+        return Response(serializer.data)
+
+class ReviewCreateProduct(APIView, CreateModelMixin):
+    serializer_class = ReviewSerializer
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request: Request, pk):
+        product = get_object_or_404(
+            Product,
+            pk=pk,
+        )
+
+        Review.objects.create(
+            author=request.data['author'],
+            email=request.data['email'],
+            text=request.data['text'],
+            rate=request.data['rate'],
+            date=datetime.datetime.now,
+            product_id=product.pk,
+        )
+        review_rate_update = Review.objects.filter(
+            product_id=product.pk,
+        )
+        review_count = len(review_rate_update)
+        summ = sum(review.rate for review in review_rate_update)
+        new_rating = summ / review_count
+
+        product.rating = new_rating
+        product.save()
+
+        return Response(request.data)
+
+class TagsList(APIView):
+    def get(self, request: Request) -> Response:
+        tags = Tag.objects.all()
+        serialized = TagSerializer(
+            tags,
+            many=True,
+        )
+        return Response(serialized.data)
