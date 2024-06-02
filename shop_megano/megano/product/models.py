@@ -57,7 +57,6 @@ class Product(models.Model):
         blank=True,
         related_name='products',
     )
-    page_number = models.IntegerField(null=True, blank=True)
 
 class ProductImage(models.Model):
     class Meta:

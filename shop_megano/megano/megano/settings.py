@@ -149,8 +149,9 @@ REST_FRAMEWORKS = {
         'rest_framework.permissions.AllowAny',
 
     ),
-    "DEFAULT_PAGINATION_CLASS": "rets_framework.pagination.PageNumberPagination",
-    "PAGE_SIZE": 10,
+    # "DEFAULT_PAGINATION_CLASS": "rets_framework.pagination.PageNumberPagination",
+    # #"DEFAULT_PAGINATION_CLASS": "rets_framework.pagination.LimitOffsetPagination",
+    # "PAGE_SIZE": 8,
 }
 
 #APPEND_SLASH = False

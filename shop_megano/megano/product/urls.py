@@ -6,11 +6,12 @@ from .views import (
     PopularProductsList,
     LimitedEditionList,
     ReviewCreateProduct,
-    TagsList
+    TagsList,
+ProductsListView
 )
 
 urlpatterns = [
-    path('api/catalog/', ProductsList.as_view(), name='products-list'),
+    path('api/catalog/', ProductsListView.as_view(), name='products-list'),
     path('api/product/<int:pk>/', ProductDetails.as_view(), name='product-details'),
     path('api/products/popular/', PopularProductsList.as_view(), name='popular-products'),
     path('api/products/limited/', LimitedEditionList.as_view(), name='limited-products'),
