@@ -1,5 +1,18 @@
 from django.db import models
 
+
+def category_image_directory_path(instance: "CategoryImage", filename) -> str:
+    if instance.category.parent:
+        return (f"categories/"
+                f"category_{instance.category.parent.pk}/"
+                f"subcategory_{instance.category.pk}/"
+                f"{filename}")
+    else:
+        return (f"categories/"
+                f"category_{instance.category.pk}/"
+                f"{filename}")
+
+
 def product_images_directory_path(instance: 'ProductImage', filename: str) -> str:
     return (f'products/'
             f'product_{instance.product.pk}/'
@@ -27,6 +40,31 @@ class CategoryProduct(models.Model):
 
     def __str__(self) -> str:
         return f"{self.title!r}"
+
+
+class CategoryImage(models.Model):
+    class Meta:
+        verbose_name = 'Category image'
+        verbose_name_plural = 'Category images'
+        ordering = ['pk', ]
+
+    category = models.OneToOneField(
+        CategoryProduct,
+        on_delete=models.CASCADE,
+        related_name='image',
+        blank=True,
+        null=True,
+    )
+    src = models.ImageField(
+        upload_to=category_image_directory_path,
+    )
+
+    def alt(self):
+        return self.category.title
+
+    def __str__(self):
+        return f'{self.src}'
+
 
 class Product(models.Model):
     """
@@ -165,3 +203,5 @@ class Sale(models.Model):
 
     def title(self):
         return self.product.title
+
+

@@ -10,11 +10,25 @@ from rest_framework.mixins import CreateModelMixin
 from rest_framework.generics import ListAPIView
 from rest_framework.pagination import PageNumberPagination
 
-from .models import Product, CategoryProduct, Review, Tag
-from .serializers import ProductSerializer, ReviewSerializer, TagSerializer
+from .models import Product, CategoryProduct, Review, Tag, Sale
+from .serializers import ProductSerializer, ReviewSerializer, TagSerializer, SalesSerializer, CategorySerializer
 
+class SetSalesPagePagination(PageNumberPagination):
+
+    page_size = 3
+    page_query_param = 'currentPage'
+    max_page_size = 3
+
+    def get_paginated_response(self, data):
+        print(self.page.__dict__)
+        return Response({
+            'items': data,
+            'currentPage': self.page.number,
+            'lastPage': self.page.paginator.num_pages
+        })
 
 class SetPagePagination(PageNumberPagination):
+
     page_size = 8
     page_query_param = 'currentPage'
     max_page_size = 8
@@ -65,7 +79,9 @@ class ProductsListView(ListAPIView):
         max_price = float(request.query_params.get('filter[maxPrice]') or 50000)
         filter_dict["price__range"] = (min_price, max_price)
 
-        category = request.META['HTTP_REFERER'].split('/')[4] or None
+        # category = request.META['HTTP_REFERER'].split('/')[4] or None
+        category = request.query_params.get('category', None)
+
         sort = request.GET.get('sort')
 
         if category:
@@ -111,89 +127,6 @@ class ProductsListView(ListAPIView):
 
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
-
-
-
-class ProductsList(APIView):
-    """
-    Класс view. Отображает продукты на странице.
-    """
-
-    def get(self, request: Request) -> Response:
-        filter_dict = dict()
-        sort_list = list()
-
-        filter_dict["count__gt"] = 0
-
-        name = request.query_params.get('filter[name]') or None
-        if name:
-            filter_dict["title__iregex"] = name
-
-        avail = request.query_params.get('filter[available]', None)
-        if avail is not None:
-            filter_dict["archived"] = False if avail == 'true' else True
-        else:
-            sort_list.append('archived')
-
-        deliver = request.query_params.get('filter[freeDelivery]', None)
-        if deliver is not None:
-            if deliver == 'true':
-                filter_dict["freeDelivery"] = True
-        else:
-            sort_list.append("-freeDelivery")
-
-        tags = request.query_params.getlist('tags[]') or None
-        if tags:
-            filter_dict["tags__in"] = tags
-
-        min_price = float(request.query_params.get('filter[minPrice]') or 0)
-        max_price = float(request.query_params.get('filter[maxPrice]') or 50000)
-        filter_dict["price__range"] = (min_price, max_price)
-
-        category = request.META['HTTP_REFERER'].split('/')[4] or None
-        sort = request.GET.get('sort')
-
-        if category:
-            if category.startswith('?filter='):
-                if name is None:
-                    name = category[8:]
-            else:
-                parent_category = CategoryProduct.objects.filter(
-                    parent_id=category,
-                )
-                all_categories = [subcat.pk for subcat in parent_category]
-                all_categories.append(int(category))
-                filter_dict["category_id__in"] = all_categories
-
-        print(filter_dict)
-        products_list = Product.objects.filter(**filter_dict)
-
-        if request.GET.get('sortType') == 'inc':
-            sortType = '-'
-        else:
-            sortType = ''
-
-        if sort == 'reviews':
-            products_list = products_list.annotate(
-                count_reviews=Count('reviews'),
-            ).order_by(
-                f'{sortType}count_reviews'
-            )
-        else:
-            products_list = products_list.order_by(
-                f'{sortType}{sort}',
-            )
-        products_list = products_list.prefetch_related(
-            'images',
-            'tags',
-        )
-
-        paginator = SetPagePagination()
-        paganation_products = paginator.paginate_queryset(products_list, request)
-
-        serializer = ProductSerializer(paganation_products, many=True)
-
-        return Response({'items': serializer.data})
 
 
 class ProductDetails(APIView):
@@ -269,3 +202,31 @@ class TagsList(APIView):
             many=True,
         )
         return Response(serialized.data)
+
+class SalesList(ListAPIView):
+    queryset = Sale.objects.all()
+    pagination_class = SetSalesPagePagination
+    serializer_class = SalesSerializer
+
+    def list(self, request, *args, **kwargs):
+        #queryset = Product.objects.filter(sales__isnull=False).select_related('category')
+
+        page = self.paginate_queryset(self.queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(self.queryset, many=True)
+        return Response(serializer.data)
+
+class CategoriesList(APIView):
+    def get(self, request: Request) -> Response:
+        categories = CategoryProduct.objects.filter(parent=None)
+        serialized = CategorySerializer(
+            categories,
+            many=True,
+        )
+        print(serialized.data)
+        return Response(serialized.data)
+

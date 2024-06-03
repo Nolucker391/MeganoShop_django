@@ -1,7 +1,7 @@
 import datetime
 
 from rest_framework import serializers
-from.models import Product, Tag, Review, ProductImage
+from.models import Product, Tag, Review, ProductImage, Sale, CategoryProduct, CategoryImage
 
 
 class TagSerializer(serializers.ModelSerializer):
@@ -88,3 +88,72 @@ class ProductSerializer(serializers.ModelSerializer):
         return images
 
 
+class SalesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Sale
+        fields = (
+            'id',
+            'salePrice',
+            'dateFrom',
+            'dateTo',
+            'price',
+            'title',
+            'images',
+        )
+    images = serializers.SerializerMethodField()
+    title = serializers.StringRelatedField()
+    price = serializers.StringRelatedField()
+    dateFrom = serializers.DateField(format='%d-%m')
+    dateTo = serializers.DateField(format='%d-%m')
+
+    def get_images(self, instance):
+        images = []
+        for image in instance.product.images.all():
+            images.append(
+                {'src': f'/media/{image.__str__()}',
+                 'alt': image.name},
+            )
+        return images
+
+
+class CategoryImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CategoryImage
+        fields = (
+            'id',
+            'src',
+            'alt',
+        )
+
+
+class SubCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CategoryProduct
+        fields = (
+            'id',
+            'title',
+            'image',
+            'parent',
+        )
+
+    image = CategoryImageSerializer(many=False)
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CategoryProduct
+        fields = (
+            'id',
+            'title',
+            'image',
+            'subcategories',
+        )
+
+    image = CategoryImageSerializer(
+        many=False,
+        required=False,
+    )
+
+    subcategories = SubCategorySerializer(
+        many=True,
+        required=False,
+    )
