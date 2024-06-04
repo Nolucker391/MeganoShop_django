@@ -9,6 +9,7 @@ from .views import (
     TagsList,
     SalesList,
     CategoriesList,
+    BannersList,
 )
 
 urlpatterns = [
@@ -23,4 +24,5 @@ urlpatterns = [
     path('api/tags/', TagsList.as_view(), name='tags-list'),
     path('api/sales/', SalesList.as_view(), name='sales-list'),
     path('api/categories/', CategoriesList.as_view(), name='categories-list'),
+    path('api/banners/', BannersList.as_view(), name='banners_list'),
 ]

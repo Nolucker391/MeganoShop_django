@@ -2,6 +2,12 @@ from django.db import models
 
 
 def category_image_directory_path(instance: "CategoryImage", filename) -> str:
+    '''
+    Функция для сохранения пути фотографии, в директории.
+    :param instance:
+    :param filename:
+    :return:
+    '''
     if instance.category.parent:
         return (f"categories/"
                 f"category_{instance.category.parent.pk}/"
@@ -14,6 +20,12 @@ def category_image_directory_path(instance: "CategoryImage", filename) -> str:
 
 
 def product_images_directory_path(instance: 'ProductImage', filename: str) -> str:
+    '''
+    Функция для сохранения пути фотографии, в директории.
+    :param instance:
+    :param filename:
+    :return:
+    '''
     return (f'products/'
             f'product_{instance.product.pk}/'
             f'{filename}')
@@ -43,6 +55,9 @@ class CategoryProduct(models.Model):
 
 
 class CategoryImage(models.Model):
+    '''
+    Класс модель фотографии категории.
+    '''
     class Meta:
         verbose_name = 'Category image'
         verbose_name_plural = 'Category images'
@@ -81,13 +96,13 @@ class Product(models.Model):
     title = models.CharField(max_length=200, null=False, blank=True) # название
     description = models.CharField(max_length=200, null=False, blank=True) # описание
     price = models.DecimalField(default=1, max_digits=8, decimal_places=2, null=False) # цена
-    count = models.IntegerField(default=0, null=False) # количество отзывов
+    count = models.IntegerField(default=0, null=False) # количество
     rating = models.DecimalField(default=0, max_digits=5, decimal_places=2, null=False) # рейтинг продукта
     date = models.DateTimeField(auto_now_add=True, null=False) # дата создания
     archived = models.BooleanField(default=False) # архив
     freeDelivery = models.BooleanField(default=True) # бесплатная доставка
-    limited_edition = models.BooleanField(default=False)
-    fullDescription = models.TextField(null=False,blank=True)
+    limited_edition = models.BooleanField(default=False) # ограниченое количество
+    fullDescription = models.TextField(null=False,blank=True) # полное описание
     category = models.ForeignKey(
         CategoryProduct,
         on_delete=models.SET_NULL,
@@ -97,6 +112,9 @@ class Product(models.Model):
     )
 
 class ProductImage(models.Model):
+    '''
+    Класс модель фотографии продукта.
+    '''
     class Meta:
         verbose_name = 'Product image'
         verbose_name_plural = 'Product images'
@@ -143,6 +161,29 @@ class Tag(models.Model):
 
     def __str__(self) -> str:
         return f'{self.name!r}'
+
+class ProductSpecification(models.Model):
+    """Модель характеристики продукта"""
+
+    class Meta:
+        verbose_name = 'Product specification'
+        verbose_name_plural = 'Product specifications'
+
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.PROTECT,
+        related_name='specifications',
+    )
+
+    name = models.CharField(
+        max_length=200,
+        default="",
+    )
+    value = models.CharField(
+        max_length=200,
+        default="",
+    )
+
 
 class Review(models.Model):
     """Модель отзыва на продукт"""

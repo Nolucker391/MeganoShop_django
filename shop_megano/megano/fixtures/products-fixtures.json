@@ -1,5 +1,175 @@
 [
   {
+    "model": "product.categoryproduct",
+    "pk": 1,
+    "fields": {
+      "title": "electronic equipment",
+      "parent": null,
+      "favourite": false
+    }
+  },
+  {
+    "model": "product.categoryproduct",
+    "pk": 2,
+    "fields": {
+      "title": "computers",
+      "parent": 1,
+      "favourite": false
+    }
+  },
+  {
+    "model": "product.categoryproduct",
+    "pk": 3,
+    "fields": {
+      "title": "laptops",
+      "parent": 1,
+      "favourite": false
+    }
+  },
+  {
+    "model": "product.categoryproduct",
+    "pk": 7,
+    "fields": {
+      "title": "accessories",
+      "parent": null,
+      "favourite": false
+    }
+  },
+  {
+    "model": "product.categoryproduct",
+    "pk": 8,
+    "fields": {
+      "title": "headphones",
+      "parent": 7,
+      "favourite": false
+    }
+  },
+  {
+    "model": "product.categoryproduct",
+    "pk": 9,
+    "fields": {
+      "title": "watches",
+      "parent": 7,
+      "favourite": false
+    }
+  },
+  {
+    "model": "product.categoryproduct",
+    "pk": 10,
+    "fields": {
+      "title": "phones",
+      "parent": 1,
+      "favourite": false
+    }
+  },
+  {
+    "model": "product.categoryproduct",
+    "pk": 11,
+    "fields": {
+      "title": "tablets",
+      "parent": 1,
+      "favourite": false
+    }
+  },
+  {
+    "model": "product.categoryproduct",
+    "pk": 12,
+    "fields": {
+      "title": "consoles",
+      "parent": 1,
+      "favourite": false
+    }
+  },
+  {
+    "model": "product.categoryproduct",
+    "pk": 13,
+    "fields": {
+      "title": "tv",
+      "parent": 1,
+      "favourite": false
+    }
+  },
+  {
+    "model": "product.categoryimage",
+    "pk": 1,
+    "fields": {
+      "category": 1,
+      "src": "categories/category_1/comp_lapt.jpeg"
+    }
+  },
+  {
+    "model": "product.categoryimage",
+    "pk": 2,
+    "fields": {
+      "category": 2,
+      "src": "categories/category_1/subcategory_2/pc1.jpeg"
+    }
+  },
+  {
+    "model": "product.categoryimage",
+    "pk": 3,
+    "fields": {
+      "category": 3,
+      "src": "categories/category_1/subcategory_3/laptop.png"
+    }
+  },
+  {
+    "model": "product.categoryimage",
+    "pk": 7,
+    "fields": {
+      "category": 7,
+      "src": "categories/category_7/accs.jpeg"
+    }
+  },
+  {
+    "model": "product.categoryimage",
+    "pk": 8,
+    "fields": {
+      "category": 8,
+      "src": "categories/category_7/subcategory_8/headphones.png"
+    }
+  },
+  {
+    "model": "product.categoryimage",
+    "pk": 9,
+    "fields": {
+      "category": 9,
+      "src": "categories/category_7/subcategory_9/watchs.png"
+    }
+  },
+  {
+    "model": "product.categoryimage",
+    "pk": 10,
+    "fields": {
+      "category": 10,
+      "src": "categories/category_1/subcategory_10/phones.png"
+    }
+  },
+  {
+    "model": "product.categoryimage",
+    "pk": 11,
+    "fields": {
+      "category": 11,
+      "src": "categories/category_1/subcategory_11/tablet.png"
+    }
+  },
+  {
+    "model": "product.categoryimage",
+    "pk": 12,
+    "fields": {
+      "category": 12,
+      "src": "categories/category_1/subcategory_12/ps5.webp"
+    }
+  },
+  {
+    "model": "product.categoryimage",
+    "pk": 13,
+    "fields": {
+      "category": 13,
+      "src": "categories/category_1/subcategory_13/tv.png"
+    }
+  },
+  {
     "model": "product.product",
     "pk": 1,
     "fields": {
@@ -13,8 +183,7 @@
       "freeDelivery": true,
       "limited_edition": false,
       "fullDescription": "Дата выпуска: сентябрь 2021 года.\r\nОсобенности: A15 Bionic чип, улучшенная двойная камера, более яркий дисплей Super Retina XDR, дольше работающий аккумулятор по сравнению с предыдущими моделями, поддержка 5G.",
-      "category": null,
-      "page_number": 4
+      "category": 10
     }
   },
   {
@@ -31,8 +200,7 @@
       "freeDelivery": true,
       "limited_edition": false,
       "fullDescription": "Дата выпуска: сентябрь 2022 года.\r\nОсобенности: Предполагается улучшение процессора, камеры и других технологий по сравнению с iPhone 13, включая новые функции безопасности и возможно новый дизайн.",
-      "category": null,
-      "page_number": 1
+      "category": 10
     }
   },
   {
@@ -49,8 +217,7 @@
       "freeDelivery": true,
       "limited_edition": false,
       "fullDescription": "Дата выпуска: сентябрь 2023 года.\r\nОсобенности: На момент моего последнего обновления информации, детали о iPhone 15 не были доступны. Ожидается, что он будет включать в себя последние инновации и технологические достижения Apple.",
-      "category": null,
-      "page_number": 2
+      "category": 10
     }
   },
   {
@@ -67,8 +234,7 @@
       "freeDelivery": true,
       "limited_edition": false,
       "fullDescription": "Дата выпуска: ноябрь 2020 года.\r\nОсобенности: Первый MacBook Air на базе собственного чипа Apple M1, который значительно улучшил производительность и эффективность энергопотребления по сравнению с предыдущими моделями на Intel. Он также предложил до 18 часов работы батареи, улучшенную графику и возможность запускаать приложения для iOS.",
-      "category": null,
-      "page_number": 3
+      "category": 3
     }
   },
   {
@@ -85,8 +251,7 @@
       "freeDelivery": true,
       "limited_edition": false,
       "fullDescription": "MacBook air с чипом M2 представляет собой обновленную версию популярного ноутбука Apple, оснащенную новым процессором M2, который является вторым поколением чипов серии M от Apple. Этот чип предлагает улучшенные характеристики производительности и энергоэффективности по сравнению с его предшественником M1, включая восьмиядерный процессор и до 10-ядерную графическую подсистему. Модель доступна в четырех цветах: серебристый, космический серый, полночь и звездное светило.",
-      "category": null,
-      "page_number": 1
+      "category": 3
     }
   },
   {
@@ -103,8 +268,7 @@
       "freeDelivery": true,
       "limited_edition": false,
       "fullDescription": "Планшет Apple iPad 10.9-inch Wi-Fi 64GB Silver 2022 представляет собой обновленный базовый вариант линейки iPad, который вводит несколько значительных изменений по сравнению с предыдущим поколением.",
-      "category": null,
-      "page_number": 3
+      "category": 11
     }
   },
   {
@@ -120,9 +284,8 @@
       "archived": false,
       "freeDelivery": true,
       "limited_edition": false,
-      "fullDescription": "",
-      "category": null,
-      "page_number": 3
+      "fullDescription": "Моноблок Apple iMac 24 2021 с чипом M1 и 7-ядерной графикой представляет собой компьютер нового поколения от Apple.\r\nЭтот моноблок предлагается в различных цветовых вариантах, включая синий, зеленый, розовый, серебристый, желтый, оранжевый и фиолетовый. Он идеально подходит для пользователей, ищущих мощный и элегантно выглядящий компьютер для работы, учебы или развлечений.",
+      "category": 2
     }
   },
   {
@@ -138,9 +301,8 @@
       "archived": false,
       "freeDelivery": true,
       "limited_edition": false,
-      "fullDescription": "",
-      "category": null,
-      "page_number": 3
+      "fullDescription": "Моноблок Apple iMac 24 2021 года выпуска с чипом M1 и 8-ядерной графикой представляет собой высокопроизводительный компьютер.\r\nЭтот моноблок доступен в нескольких цветовых вариантах, включая синий, зеленый, розовый, серебристый, желтый, оранжевый и фиолетовый. Он идеально подходит для пользователей, ищущих мощный и стильный компьютер для выполнения задач, связанных с работой, обучением или отдыхом.",
+      "category": 2
     }
   },
   {
@@ -156,9 +318,8 @@
       "archived": false,
       "freeDelivery": true,
       "limited_edition": false,
-      "fullDescription": "",
-      "category": null,
-      "page_number": 4
+      "fullDescription": "Беспроводные наушники Apple AirPods Max \"Голубое небо\" представляют собой высококачественные гарнитуры для прослушивания музыки и видео, разработанные компанией Apple. \r\nAirPods Max являются идеальным выбором для любителей качества звука, ищущих комфортные и стильные гарнитуры для ежедневного использования.",
+      "category": 8
     }
   },
   {
@@ -174,9 +335,8 @@
       "archived": false,
       "freeDelivery": true,
       "limited_edition": false,
-      "fullDescription": "",
-      "category": null,
-      "page_number": 3
+      "fullDescription": "Наушники Apple AirPods Pro 2 с MagSafe Charging Case (USB-C) представляют собой улучшенную версию популярных наушников AirPods Pro.\r\nЭти наушники идеально подходят для тех, кто ценит качество звука, удобство использования и экологическую устойчивость в своем оборудовании для прослушивания музыки и видео.",
+      "category": 8
     }
   },
   {
@@ -192,9 +352,8 @@
       "archived": false,
       "freeDelivery": true,
       "limited_edition": false,
-      "fullDescription": "",
-      "category": null,
-      "page_number": 4
+      "fullDescription": "Смарт-часы Apple Watch Series 9 41 мм с дизайном \"Сияющая звезда\" в размере M/L с спортивным ремешком представляют собой продвинутые устройства для здоровья и спорта.\r\nЭти смарт-часы идеально подходят для тех, кто стремится сочетать стиль, функциональность и заботу о здоровье и благополучии.",
+      "category": 9
     }
   },
   {
@@ -210,9 +369,8 @@
       "archived": false,
       "freeDelivery": true,
       "limited_edition": false,
-      "fullDescription": "",
-      "category": null,
-      "page_number": 4
+      "fullDescription": "Смарт-часы Apple Watch SE 2023 года выпуска с GPS и 40-миллиметровым корпусом в цвете \"Полночь\", оснащенные спортивным ремешком \"Полночь\" размера M/L.\r\nЭти смарт-часы идеально подходят для тех, кто ищет надежное и функциональное решение для отслеживания здоровья и активности, а также для общения и развлечений.",
+      "category": 9
     }
   },
   {
@@ -228,9 +386,8 @@
       "archived": false,
       "freeDelivery": true,
       "limited_edition": false,
-      "fullDescription": "",
-      "category": null,
-      "page_number": 1
+      "fullDescription": "Смарт-часы Apple Watch Ultra 49 мм с корпусом из титана в оранжево-бежевом цвете и крупным ремешком \"Альпийский\" представляют собой топовую модель в линейке Apple Watch.\r\nЭти смарт-часы идеально подходят для активных людей, которым нужны не только функции здоровья и спорта, но и высокая производительность, прочность и стиль.",
+      "category": 9
     }
   },
   {
@@ -246,9 +403,8 @@
       "archived": false,
       "freeDelivery": true,
       "limited_edition": false,
-      "fullDescription": "",
-      "category": null,
-      "page_number": 1
+      "fullDescription": "Очки виртуальной реальности Apple Vision Pro с емкостью 1TB представляют собой революционный продукт, предлагающий уникальные возможности для развлечений и интерактивного взаимодействия.\r\nApple Vision Pro предлагает уникальные возможности для погружения в виртуальную реальность, улучшая опыт просмотра фильмов, игр и обучения, благодаря своим передовым технологиям и инновационному дизайну.",
+      "category": 12
     }
   },
   {
@@ -264,9 +420,8 @@
       "archived": false,
       "freeDelivery": true,
       "limited_edition": false,
-      "fullDescription": "",
-      "category": null,
-      "page_number": 2
+      "fullDescription": "Wi-Fi роутер Time Capsule Apple Airport Time Capsule 2TB (ME177RU/A) представляет собой устройство, совмещающее функции сетевого маршрутизатора и сетевого накопителя (NAS).\r\nTime Capsule Apple Airport Time Capsule 2TB (ME177RU/A) является идеальным решением для пользователей Mac, желающих иметь централизованное место для хранения и резервного копирования своих данных, а также для обеспечения надежного Wi-Fi соединения в домашних сетях.",
+      "category": 7
     }
   },
   {
@@ -282,9 +437,8 @@
       "archived": false,
       "freeDelivery": true,
       "limited_edition": false,
-      "fullDescription": "",
-      "category": null,
-      "page_number": 2
+      "fullDescription": "Телевизионная приставка Apple TV 4K с кодом продукта ME177RU/A представляет собой устройство для трансляции контента в высоком качестве 4K. \r\nApple TV 4K предлагает пользователям высококачественное просмотрение контента в 4K, поддержку различных форматов и услуг, а также удобство управления благодаря интеграции с Siri и другими функциями.",
+      "category": 7
     }
   },
   {
@@ -300,9 +454,8 @@
       "archived": false,
       "freeDelivery": true,
       "limited_edition": false,
-      "fullDescription": "",
-      "category": null,
-      "page_number": 2
+      "fullDescription": "Телевизор Sony KD-65X85L, 65-дюймовый UHD 4K, представляет собой устройство среднего уровня с несколькими заметными особенностями и недостатками. \r\nТелевизор Sony KD-65X85L предлагает хорошее качество изображения и поддержку HDR, но его узкий угол обзора и отсутствие локального затемнения могут быть недостатками для некоторых пользователей.",
+      "category": 13
     }
   },
   {
@@ -318,9 +471,8 @@
       "archived": false,
       "freeDelivery": true,
       "limited_edition": false,
-      "fullDescription": "",
-      "category": null,
-      "page_number": 1
+      "fullDescription": "Приставка игровая Sony PlayStation 5 Blu-Ray CFI-1218A, 825Gb, белого цвета, представляет собой мощное игровое устройство нового поколения с рядом впечатляющих характеристик.\r\nSony PlayStation 5 Blu-Ray CFI-1218A предлагает пользователям мощную игровую систему с поддержкой 4K и 8K графики, высокоскоростным SSD для быстрой загрузки игр и приложений, а также продвинутые звуковые технологии для погружающего игрового опыта.",
+      "category": 12
     }
   },
   {
@@ -336,9 +488,8 @@
       "archived": false,
       "freeDelivery": true,
       "limited_edition": true,
-      "fullDescription": "",
-      "category": null,
-      "page_number": 2
+      "fullDescription": "Игровой компьютер HYPERPC Cyber представляет собой мощное и роскошное решение для геймеров, сочетающее в себе агрессивный дизайн и высокую производительность.\r\nHYPERPC Cyber позиционируется как абсолютный фаворит среди игровых компьютеров, предлагая не только впечатляющие технические характеристики, но и уникальный дизайн, который удовлетворяет потребности и желания самых требовательных геймеров.",
+      "category": 2
     }
   },
   {
@@ -1140,6 +1291,36 @@
       "rate": 5,
       "date": "2024-06-01T15:58:30.357Z",
       "product": 18
+    }
+  },
+  {
+    "model": "product.sale",
+    "pk": 1,
+    "fields": {
+      "product": 5,
+      "salePrice": "878.00",
+      "dateFrom": "2024-06-03",
+      "dateTo": "2024-06-30"
+    }
+  },
+  {
+    "model": "product.sale",
+    "pk": 2,
+    "fields": {
+      "product": 13,
+      "salePrice": "659.12",
+      "dateFrom": "2024-06-03",
+      "dateTo": "2024-06-30"
+    }
+  },
+  {
+    "model": "product.sale",
+    "pk": 3,
+    "fields": {
+      "product": 18,
+      "salePrice": "487.15",
+      "dateFrom": "2024-06-03",
+      "dateTo": "2024-06-30"
     }
   }
 ]

@@ -5,44 +5,36 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from django.db.models import Count
 from rest_framework.mixins import CreateModelMixin
 from rest_framework.generics import ListAPIView
-from rest_framework.pagination import PageNumberPagination
 
-from .models import Product, CategoryProduct, Review, Tag, Sale
-from .serializers import ProductSerializer, ReviewSerializer, TagSerializer, SalesSerializer, CategorySerializer
+from django.db.models import Count
 
-class SetSalesPagePagination(PageNumberPagination):
+from .models import (
+    Product,
+    CategoryProduct,
+    Review,
+    Tag,
+    Sale
+)
+from .serializers import (
+    ProductSerializer,
+    ReviewSerializer,
+    TagSerializer,
+    SalesSerializer,
+    CategorySerializer
+)
+from .paginations import (
+    SetPagePagination,
+    SetSalesPagePagination
+)
 
-    page_size = 3
-    page_query_param = 'currentPage'
-    max_page_size = 3
-
-    def get_paginated_response(self, data):
-        print(self.page.__dict__)
-        return Response({
-            'items': data,
-            'currentPage': self.page.number,
-            'lastPage': self.page.paginator.num_pages
-        })
-
-class SetPagePagination(PageNumberPagination):
-
-    page_size = 8
-    page_query_param = 'currentPage'
-    max_page_size = 8
-
-    def get_paginated_response(self, data):
-        print(self.page.__dict__)
-        return Response({
-            'items': data,
-            'currentPage': self.page.number,
-            'lastPage': self.page.paginator.num_pages
-        })
 
 
 class ProductsListView(ListAPIView):
+    """
+    Класс для отображения продуктов на странице каталога.
+    """
     queryset = Product.objects.all()
     pagination_class = SetPagePagination
     serializer_class = ProductSerializer
@@ -129,8 +121,13 @@ class ProductsListView(ListAPIView):
         return Response(serializer.data)
 
 
+
 class ProductDetails(APIView):
+    """
+    Класс для отображения деталей продукто.
+    """
     def get(self, request: Request, pk: int):
+        #print(request.__dict__)
         products = Product.objects.get(pk=pk)
         serializer = ProductSerializer(products, many=False)
 
@@ -139,7 +136,7 @@ class ProductDetails(APIView):
 
 class PopularProductsList(APIView):
     """
-    Класс
+    Класс для отображения популярных продуктов на главной странице.
     """
 
     def get(self, request: Request):
@@ -155,6 +152,9 @@ class PopularProductsList(APIView):
 
 
 class LimitedEditionList(APIView):
+    """
+        Класс для отображения ограниченных продуктов на главной странице.
+    """
     def get(self, request: Request):
         products = Product.objects.filter(limited_edition=True)
 
@@ -164,6 +164,9 @@ class LimitedEditionList(APIView):
 
 
 class ReviewCreateProduct(APIView, CreateModelMixin):
+    """
+    Класc для создания отзыва на продукт.
+    """
     serializer_class = ReviewSerializer
     permission_classes = [IsAuthenticated]
 
@@ -195,6 +198,9 @@ class ReviewCreateProduct(APIView, CreateModelMixin):
 
 
 class TagsList(APIView):
+    """
+        Класс для отображения тэгов, часто-используемых продуктов.
+    """
     def get(self, request: Request) -> Response:
         tags = Tag.objects.all()
         serialized = TagSerializer(
@@ -204,6 +210,9 @@ class TagsList(APIView):
         return Response(serialized.data)
 
 class SalesList(ListAPIView):
+    """
+    Класс для отображения списка продуктов для распродажи.
+    """
     queryset = Sale.objects.all()
     pagination_class = SetSalesPagePagination
     serializer_class = SalesSerializer
@@ -221,12 +230,28 @@ class SalesList(ListAPIView):
         return Response(serializer.data)
 
 class CategoriesList(APIView):
+    """
+    Класс для отображения категориев продуктов.
+    """
     def get(self, request: Request) -> Response:
         categories = CategoryProduct.objects.filter(parent=None)
         serialized = CategorySerializer(
             categories,
             many=True,
         )
-        print(serialized.data)
+        #print(serialized.data)
         return Response(serialized.data)
 
+class BannersList(APIView):
+    """
+        Класс для отображения любимых продуктов на главной странице.
+    """
+    def get(self, request: Request):
+
+        categories = CategoryProduct.objects.filter(favourite=True)
+        categories_list = [category for category in categories]
+        banners = Product.objects.filter(category_id__in=categories_list)
+
+        serializer = ProductSerializer(banners, many=True)
+
+        return Response(serializer.data)

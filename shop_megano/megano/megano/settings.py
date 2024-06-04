@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'frontend',
     'userprofile.apps.UserprofileConfig',
     'product.apps.ProductConfig',
-
+    'usercart.apps.UsercartConfig',
 ]
 
 MIDDLEWARE = [

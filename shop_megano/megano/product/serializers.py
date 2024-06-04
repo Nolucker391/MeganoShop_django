@@ -1,10 +1,25 @@
 import datetime
 
 from rest_framework import serializers
-from.models import Product, Tag, Review, ProductImage, Sale, CategoryProduct, CategoryImage
+from.models import Product, Tag, Review, ProductImage, Sale, CategoryProduct, CategoryImage, ProductSpecification
+
+class ProductSpecificationSerializer(serializers.ModelSerializer):
+    """
+    Сериализатор для характеристики продуктов.
+    """
+    class Meta:
+        model = ProductSpecification
+        fields = (
+            'id',
+            'name',
+            'value',
+        )
 
 
 class TagSerializer(serializers.ModelSerializer):
+    """
+    Сериализатор для тэгов на продукты.
+    """
     class Meta:
         model = Tag
         fields = (
@@ -13,6 +28,9 @@ class TagSerializer(serializers.ModelSerializer):
         )
 
 class ReviewSerializer(serializers.ModelSerializer):
+    """
+    Сериализатор для отзывов продукта.
+    """
     date = serializers.SerializerMethodField()
 
     class Meta:
@@ -34,6 +52,9 @@ class ReviewSerializer(serializers.ModelSerializer):
         )
 
 class ProductSerializer(serializers.ModelSerializer):
+    """
+    Сериализатор для продуктов.
+    """
     class Meta:
         model = Product
         fields = (
@@ -46,6 +67,7 @@ class ProductSerializer(serializers.ModelSerializer):
             'description',
             'fullDescription',
             'freeDelivery',
+            'specifications',
             'images',
             'tags',
             'reviews',
@@ -53,6 +75,11 @@ class ProductSerializer(serializers.ModelSerializer):
         )
 
     images = serializers.SerializerMethodField()
+
+    specifications = ProductSpecificationSerializer(
+        many=True,
+        required=False,
+    )
 
     tags = TagSerializer(
         many=True,
@@ -89,6 +116,9 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class SalesSerializer(serializers.ModelSerializer):
+    """
+    Сериализатор для распродажи продуктов.
+    """
     class Meta:
         model = Sale
         fields = (
@@ -117,6 +147,9 @@ class SalesSerializer(serializers.ModelSerializer):
 
 
 class CategoryImageSerializer(serializers.ModelSerializer):
+    """
+    Сериализатор для фотографии категории продукта.
+    """
     class Meta:
         model = CategoryImage
         fields = (
@@ -127,6 +160,9 @@ class CategoryImageSerializer(serializers.ModelSerializer):
 
 
 class SubCategorySerializer(serializers.ModelSerializer):
+    """
+    Сериализатор для подкатегории продукта.
+    """
     class Meta:
         model = CategoryProduct
         fields = (
@@ -139,6 +175,9 @@ class SubCategorySerializer(serializers.ModelSerializer):
     image = CategoryImageSerializer(many=False)
 
 class CategorySerializer(serializers.ModelSerializer):
+    """
+    Сериализатор для категории продукта.
+    """
     class Meta:
         model = CategoryProduct
         fields = (
