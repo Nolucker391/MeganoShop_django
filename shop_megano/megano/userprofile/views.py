@@ -1,6 +1,7 @@
 import json
 
 from django.contrib.auth import login
+from django.conf import settings
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -18,6 +19,8 @@ from .serializers import (
     AvatarSerializer
 )
 
+from usercart.models import UserCart
+from product.models import Product
 
 @api_view(["POST"])
 def UserLogin(request: Request):
@@ -31,6 +34,14 @@ def UserLogin(request: Request):
     if serializer.is_valid(raise_exception=True):
         user = serializer.validated_data['user']
         login(request, user)
+
+        session_cart_data = request.session.get(settings.CART_SESSION_ID, {})
+        user_basket, _ = UserCart.objects.get_or_create(user=user)
+
+        for product_id, details in session_cart_data.items():
+            product = Product.objects.get(id=int(product_id))
+            basket_item = BasketItem(product=product, count=details['count'], basket=user_basket)
+            basket_item.save()
 
         return Response('Вы успешно авторизовались!', status=200)
     else:

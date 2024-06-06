@@ -154,6 +154,8 @@ REST_FRAMEWORKS = {
     # "PAGE_SIZE": 8,
 }
 
+# SESSION_COOKIE_AGE = None
+CART_SESSION_ID = 'usercart'
 #APPEND_SLASH = False
 
 
