@@ -14,4 +14,5 @@ class UserBasket(object):
         Инициализация корзины.
         :param request:
         """
-        pass
+        self.session = request.session
+        print(self.session)
