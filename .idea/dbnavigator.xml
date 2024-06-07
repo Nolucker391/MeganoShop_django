@@ -16,7 +16,7 @@
     <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
-    <connection id="25ac53c1-da77-41d4-9eb1-107a56547f9a">
+    <connection id="49c0583f-a6db-442d-b55e-d59b614e36b5">
       <console name="Connection" type="STANDARD" schema="" session="Main" />
     </connection>
   </component>
@@ -24,28 +24,26 @@
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files>
-      <object connection-id="25ac53c1-da77-41d4-9eb1-107a56547f9a" object-ref="schemas/main/tables/usercart_basketitem" />
-      <object connection-id="25ac53c1-da77-41d4-9eb1-107a56547f9a" object-ref="schemas/main/tables/usercart_userbasket" />
-    </open-files>
+    <open-files />
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
-    <connection id="25ac53c1-da77-41d4-9eb1-107a56547f9a" />
+    <connection id="49c0583f-a6db-442d-b55e-d59b614e36b5" />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
-    <filter-actions connection-id="25ac53c1-da77-41d4-9eb1-107a56547f9a" dataset="main.userprofile_userprofile" active-filter-id="EMPTY_FILTER" />
-    <filter-actions connection-id="25ac53c1-da77-41d4-9eb1-107a56547f9a" dataset="main.product_productimage" active-filter-id="EMPTY_FILTER" />
-    <filter-actions connection-id="25ac53c1-da77-41d4-9eb1-107a56547f9a" dataset="main.auth_user" active-filter-id="EMPTY_FILTER" />
-    <filter-actions connection-id="25ac53c1-da77-41d4-9eb1-107a56547f9a" dataset="main.auth_user_groups" active-filter-id="EMPTY_FILTER" />
-    <filter-actions connection-id="25ac53c1-da77-41d4-9eb1-107a56547f9a" dataset="main.product_review" active-filter-id="EMPTY_FILTER" />
-    <filter-actions connection-id="25ac53c1-da77-41d4-9eb1-107a56547f9a" dataset="main.product_product" active-filter-id="EMPTY_FILTER" />
-    <filter-actions connection-id="25ac53c1-da77-41d4-9eb1-107a56547f9a" dataset="main.usercart_basketitem" active-filter-id="EMPTY_FILTER" />
-    <filter-actions connection-id="25ac53c1-da77-41d4-9eb1-107a56547f9a" dataset="main.usercart_userbasket" active-filter-id="EMPTY_FILTER" />
-    <filter-actions connection-id="25ac53c1-da77-41d4-9eb1-107a56547f9a" dataset="main.product_sale" active-filter-id="" />
-    <filter-actions connection-id="25ac53c1-da77-41d4-9eb1-107a56547f9a" dataset="main.django_session" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="49c0583f-a6db-442d-b55e-d59b614e36b5" dataset="main.usercart_basketitem" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="49c0583f-a6db-442d-b55e-d59b614e36b5" dataset="main.product_product" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="49c0583f-a6db-442d-b55e-d59b614e36b5" dataset="main.usercart_usercart" active-filter-id="EMPTY_FILTER" />
   </component>
   <component name="DBNavigator.Project.ExecutionManager">
     <retain-sticky-names value="false" />
+  </component>
+  <component name="DBNavigator.Project.MethodExecutionManager">
+    <method-browser />
+    <execution-history>
+      <group-entries value="true" />
+      <execution-inputs />
+    </execution-history>
+    <argument-values-cache />
   </component>
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />
@@ -53,7 +51,7 @@
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
-      <connection id="25ac53c1-da77-41d4-9eb1-107a56547f9a" active="true" signed="true">
+      <connection id="49c0583f-a6db-442d-b55e-d59b614e36b5" active="true" signed="true">
         <database>
           <name value="Connection" />
           <description value="" />
@@ -156,7 +154,6 @@
         <display-mode value="TABBED" />
         <navigation-history-size value="100" />
         <show-object-details value="false" />
-        <enable-sticky-paths value="true" />
       </general>
       <filters>
         <object-type-filter>

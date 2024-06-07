@@ -2,12 +2,16 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView
+
 from usercart.cart import UserBasket
+
 from usercart.serializers import BasketSerializer
+
 from product.models import Product
-from usercart.models import UserCart
+from usercart.models import UserCart, BasketItem
 
 from rest_framework.generics import get_object_or_404
+
 
 def products_in_basket(cart: UserBasket):
     products_id = [product_id for product_id in cart.cart.keys()]
@@ -20,6 +24,7 @@ def products_in_basket(cart: UserBasket):
     )
 
     return Response(serializer.data, status=200)
+
 
 class UserBasketView(APIView):
     def post(self, *args, **kwargs):
@@ -67,10 +72,21 @@ class UserBasketView(APIView):
         :return:
         """
 
-        user = UserCart.objects.filter(user_id=self.request.user.id)
+        # user = UserCart.objects.filter(user_id=self.request.user.id)
 
-        if user:
-            products_in_basket(UserBasket(user))
-        cart = UserBasket(self.request)
+        # if user:
+        #     products_in_basket(UserBasket(user))
+        # cart = UserBasket(self.request)
 
-        return products_in_basket(cart)
+
+        # cart = UserBasket(self.request)
+        # products = Product.objects.filter()
+        # products = Product.objects.get(pk=cart.products.pk)
+        #return products_in_basket(cart)
+
+        cart = UserCart.objects.get(user__pk=self.request.user.pk)
+        products = BasketItem.objects.filter(basket__pk=cart.pk)
+
+        serializer = BasketSerializer(products, many=True)
+
+        return Response(serializer.data)

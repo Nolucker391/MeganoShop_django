@@ -4,7 +4,7 @@ from product.models import Product
 
 class UserCart(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    products = models.ManyToManyField(Product, through='BasketItem')
+    products = models.ManyToManyField(Product, through='BasketItem', related_name='products')
 
 class BasketItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)

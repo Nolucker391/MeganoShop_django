@@ -14,7 +14,7 @@
     "fields": {
       "title": "computers",
       "parent": 1,
-      "favourite": false
+      "favourite": true
     }
   },
   {
@@ -1255,6 +1255,177 @@
       "tags": [
         18
       ]
+    }
+  },
+  {
+    "model": "product.productspecification",
+    "pk": 1,
+    "fields": {
+      "product": 1,
+      "name": "спецификация",
+      "value": "1"
+    }
+  },
+  {
+    "model": "product.productspecification",
+    "pk": 2,
+    "fields": {
+      "product": 2,
+      "name": "спецификация",
+      "value": "2"
+    }
+  },
+  {
+    "model": "product.productspecification",
+    "pk": 3,
+    "fields": {
+      "product": 3,
+      "name": "спецификация",
+      "value": "3"
+    }
+  },
+  {
+    "model": "product.productspecification",
+    "pk": 4,
+    "fields": {
+      "product": 4,
+      "name": "спецификация",
+      "value": "4"
+    }
+  },
+  {
+    "model": "product.productspecification",
+    "pk": 5,
+    "fields": {
+      "product": 5,
+      "name": "спецификация",
+      "value": "5"
+    }
+  },
+  {
+    "model": "product.productspecification",
+    "pk": 6,
+    "fields": {
+      "product": 6,
+      "name": "спецификация",
+      "value": "6"
+    }
+  },
+  {
+    "model": "product.productspecification",
+    "pk": 7,
+    "fields": {
+      "product": 7,
+      "name": "спецификация",
+      "value": "7"
+    }
+  },
+  {
+    "model": "product.productspecification",
+    "pk": 8,
+    "fields": {
+      "product": 8,
+      "name": "спецификация",
+      "value": "8"
+    }
+  },
+  {
+    "model": "product.productspecification",
+    "pk": 9,
+    "fields": {
+      "product": 9,
+      "name": "спецификация",
+      "value": "9"
+    }
+  },
+  {
+    "model": "product.productspecification",
+    "pk": 10,
+    "fields": {
+      "product": 10,
+      "name": "спецификация",
+      "value": "10"
+    }
+  },
+  {
+    "model": "product.productspecification",
+    "pk": 11,
+    "fields": {
+      "product": 11,
+      "name": "спецификация",
+      "value": "11"
+    }
+  },
+  {
+    "model": "product.productspecification",
+    "pk": 12,
+    "fields": {
+      "product": 12,
+      "name": "спецификация",
+      "value": "12"
+    }
+  },
+  {
+    "model": "product.productspecification",
+    "pk": 13,
+    "fields": {
+      "product": 13,
+      "name": "спецификация",
+      "value": "13"
+    }
+  },
+  {
+    "model": "product.productspecification",
+    "pk": 14,
+    "fields": {
+      "product": 14,
+      "name": "спецификация",
+      "value": "14"
+    }
+  },
+  {
+    "model": "product.productspecification",
+    "pk": 15,
+    "fields": {
+      "product": 15,
+      "name": "спецификация",
+      "value": "15"
+    }
+  },
+  {
+    "model": "product.productspecification",
+    "pk": 16,
+    "fields": {
+      "product": 16,
+      "name": "спецификация",
+      "value": "16"
+    }
+  },
+  {
+    "model": "product.productspecification",
+    "pk": 17,
+    "fields": {
+      "product": 17,
+      "name": "спецификация",
+      "value": "17"
+    }
+  },
+  {
+    "model": "product.productspecification",
+    "pk": 18,
+    "fields": {
+      "product": 18,
+      "name": "спецификация",
+      "value": "18"
+    }
+  },
+  {
+    "model": "product.productspecification",
+    "pk": 19,
+    "fields": {
+      "product": 19,
+      "name": "спецификация",
+      "value": "19"
     }
   },
   {
