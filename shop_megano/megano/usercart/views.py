@@ -5,7 +5,7 @@ from rest_framework.generics import ListAPIView
 
 from usercart.cart import UserBasket
 
-from usercart.serializers import BasketSerializer
+from usercart.serializers import BasketSerializer, GetBasketSerializer
 
 from product.models import Product
 from usercart.models import UserCart, BasketItem
@@ -84,9 +84,14 @@ class UserBasketView(APIView):
         # products = Product.objects.get(pk=cart.products.pk)
         #return products_in_basket(cart)
 
+        # cart = UserCart.objects.get(user__pk=self.request.user.pk)
+        # products = BasketItem.objects.filter(basket__pk=cart.pk)
+
+        # serializer = GetBasketSerializer(products, many=True)
+        #
+        # return Response(serializer.data)
+
         cart = UserCart.objects.get(user__pk=self.request.user.pk)
         products = BasketItem.objects.filter(basket__pk=cart.pk)
-
-        serializer = BasketSerializer(products, many=True)
-
-        return Response(serializer.data)
+        print(products)
+        return Response(status=200)
