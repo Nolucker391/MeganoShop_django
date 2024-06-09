@@ -4,9 +4,12 @@ from product.models import Product
 from usercart.models import BasketItem, UserCart
 from product.serializers import ProductSerializer
 
-class ProductBasketSerializer(serializers.ModelSerializer):
+
+
+class BasketSerializer(serializers.ModelSerializer):
+
     """
-        Сериализация продуктов в корзине
+    Сериализация продуктов в корзине
     """
 
     class Meta:
@@ -33,8 +36,7 @@ class ProductBasketSerializer(serializers.ModelSerializer):
 
     def get_count(self, instance):
         if self.user:
-            return BasketItem.objects.filter(product__pk=instance.pk,
-                                             basket__pk=UserCart.objects.get(user=self.curr_user)).count
+            return BasketItem.objects.filter(product__pk=instance.pk, basket__pk=UserCart.objects.get(user=self.curr_user)).count
         else:
             return self.context.get(str(instance.pk)).get('count')
 
@@ -54,21 +56,21 @@ class ProductBasketSerializer(serializers.ModelSerializer):
             )
         return images
 
+class GetBasketSerializer(serializers.ModelSerializer):
 
-class BasketSerializer(serializers.ModelSerializer):
     class Meta:
         model = BasketItem
         fields = (
-            'product',#'cart': {'14':
-            'count' # {'count': 1,
+            'product',
+            'count'
         )
 
-
     def to_representation(self, instance):
-        # instance = product_id
-        product = Product.objects.get(pk=instance)
-        data = ProductSerializer(product)
-        serializer = ProductBasketSerializer(data)
-
+        #print(instance.__dict__)
+        product = instance.product
+        #print(f'продукт - {product}  {product.__dict__}')
+        datas = BasketSerializer(product)
+        print('datas: ', datas)
+        for key, val in datas.items():
+            instance.update(key, val)
         return instance
-

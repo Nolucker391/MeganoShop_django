@@ -19,7 +19,7 @@ from .serializers import (
     AvatarSerializer
 )
 
-from usercart.models import UserCart, BasketItem
+#from usercart.models import UserCart, BasketItem
 from product.models import Product
 
 @api_view(["POST"])
@@ -35,15 +35,15 @@ def UserLogin(request: Request):
         user = serializer.validated_data['user']
         login(request, user)
 
-        session_cart_data = request.session.get(settings.CART_SESSION_ID, {})
-        user_basket, _ = UserCart.objects.get_or_create(user=user)
-
-        for product_id, details in session_cart_data.items():
-            product = Product.objects.get(pk=int(product_id))
-            basket_item = BasketItem(product=product, count=details['count'], basket=user_basket)
-            print(basket_item.__dict__)
-
-            basket_item.save()
+        # session_cart_data = request.session.get(settings.CART_SESSION_ID, {})
+        # user_basket, _ = UserCart.objects.get_or_create(user=user)
+        #
+        # for product_id, details in session_cart_data.items():
+        #     product = Product.objects.get(pk=int(product_id))
+        #     basket_item = BasketItem(product=product, count=details['count'], basket=user_basket)
+        #     print(basket_item.__dict__)
+        #
+        #     basket_item.save()
 
 
         return Response('Вы успешно авторизовались!', status=200)

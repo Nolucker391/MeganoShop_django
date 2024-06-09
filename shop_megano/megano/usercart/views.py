@@ -2,10 +2,11 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView
+from django.conf import settings
 
 from usercart.cart import UserBasket
 
-from usercart.serializers import BasketSerializer, GetBasketSerializer
+from usercart.serializers import BasketSerializer
 
 from product.models import Product
 from usercart.models import UserCart, BasketItem
@@ -14,16 +15,15 @@ from rest_framework.generics import get_object_or_404
 
 
 def products_in_basket(cart: UserBasket):
-    products_id = [product_id for product_id in cart.cart.keys()]
-    products = Product.objects.filter(pk__in=products_id)
+    cart_object = cart.cart
 
     serializer = BasketSerializer(
-        products,
+        cart_object,
         many=True,
-        context=cart.cart,
     )
 
     return Response(serializer.data, status=200)
+
 
 
 class UserBasketView(APIView):
@@ -45,53 +45,17 @@ class UserBasketView(APIView):
             count=count,
         )
 
-        return products_in_basket(cart)
+        if not self.request.user.is_authenticated:
+            return products_in_basket(cart)
 
-    def delete(self, *args, **kwargs):
-        """
-        Удаление товара из корзины.
-        :param args:
-        :param kwargs:
-        :return:
-        """
-        cart = UserBasket(self.request)
-        product = get_object_or_404(
-            Product,
-            id=self.request.data.get('id'),
-        )
-        count = self.request.data.get('count', False)
+        else:
+            user_basket, _ = UserCart.objects.get_or_create(user=self.request.user)
 
-        cart.remove(product, count)
-        return products_in_basket(cart)
+            for product_pk, values in cart.cart.items():
+                product = Product.objects.get(pk=int(product_pk))
+                basket_item = BasketItem(product=product, count=values['count'], basket=user_basket)
 
-    def get(self, *args, **kwargs):
-        """
-        Отображение товара в корзине.
-        :param args:
-        :param kwargs:
-        :return:
-        """
+                basket_item.save()
 
-        # user = UserCart.objects.filter(user_id=self.request.user.id)
+            return products_in_basket(cart)
 
-        # if user:
-        #     products_in_basket(UserBasket(user))
-        # cart = UserBasket(self.request)
-
-
-        # cart = UserBasket(self.request)
-        # products = Product.objects.filter()
-        # products = Product.objects.get(pk=cart.products.pk)
-        #return products_in_basket(cart)
-
-        # cart = UserCart.objects.get(user__pk=self.request.user.pk)
-        # products = BasketItem.objects.filter(basket__pk=cart.pk)
-
-        # serializer = GetBasketSerializer(products, many=True)
-        #
-        # return Response(serializer.data)
-
-        cart = UserCart.objects.get(user__pk=self.request.user.pk)
-        products = BasketItem.objects.filter(basket__pk=cart.pk)
-        print(products)
-        return Response(status=200)
