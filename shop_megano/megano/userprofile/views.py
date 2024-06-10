@@ -22,6 +22,13 @@ from .serializers import (
 #from usercart.models import UserCart, BasketItem
 from product.models import Product
 
+from usercart.models import UserCart
+
+from usercart.cart import UserBasket
+
+from usercart.models import BasketItem
+
+
 @api_view(["POST"])
 def UserLogin(request: Request):
     """
@@ -35,17 +42,23 @@ def UserLogin(request: Request):
         user = serializer.validated_data['user']
         login(request, user)
 
-        # session_cart_data = request.session.get(settings.CART_SESSION_ID, {})
-        # user_basket, _ = UserCart.objects.get_or_create(user=user)
-        #
-        # for product_id, details in session_cart_data.items():
-        #     product = Product.objects.get(pk=int(product_id))
-        #     basket_item = BasketItem(product=product, count=details['count'], basket=user_basket)
-        #     print(basket_item.__dict__)
-        #
-        #     basket_item.save()
+        session_cart_data = request.session.get(settings.CART_SESSION_ID, {})
+        user_basket, _ = UserCart.objects.get_or_create(user=user)
 
+        for product_id, details in session_cart_data.items():
 
+            product = Product.objects.get(pk=int(product_id))
+            existing_basket_item = BasketItem.objects.filter(product=product, basket=user_basket)
+
+            if existing_basket_item.exists():
+                for basket_item in existing_basket_item:
+                    basket_item.count += details['count']
+                    basket_item.save()
+                #existing_basket_item.update(count=details['count'])
+            else:
+                basket_item = BasketItem(product=product, count=details['count'], basket=user_basket)
+
+                basket_item.save()
         return Response('Вы успешно авторизовались!', status=200)
     else:
         return Response(data=serializer.errors, status=500)
@@ -63,6 +76,15 @@ def UserRegister(request: Request):
     if serializer.is_valid():
         user = serializer.save()
         login(request, user)
+
+        session_cart_data = request.session.get(settings.CART_SESSION_ID, {})
+        user_basket, _ = UserCart.objects.get_or_create(user=request.user)
+
+        for product_id, details in session_cart_data.items():
+            product = Product.objects.get(pk=int(product_id))
+            basket_item = BasketItem(product=product, count=details['count'], basket=user_basket)
+
+            basket_item.save()
 
         return Response(
             'Успешно зарегистрирован!',

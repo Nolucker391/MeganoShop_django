@@ -6,7 +6,7 @@ from product.serializers import ProductSerializer
 
 class ProductBasketSerializer(serializers.ModelSerializer):
     """
-        Сериализация продуктов в корзине
+        Сериализация продуктов с корзины.
     """
 
     class Meta:
@@ -32,11 +32,8 @@ class ProductBasketSerializer(serializers.ModelSerializer):
     images = serializers.SerializerMethodField()
 
     def get_count(self, instance):
-        if self.user:
-            return BasketItem.objects.filter(product__pk=instance.pk,
-                                             basket__pk=UserCart.objects.get(user=self.curr_user)).count
-        else:
-            return self.context.get(str(instance.pk)).get('count')
+        return self.context.get('count')
+        #return self.context.get(str(instance.pk)).get('count')
 
     def get_price(self, instance):
         sale_price = instance.sales.first()
@@ -56,6 +53,10 @@ class ProductBasketSerializer(serializers.ModelSerializer):
 
 
 class BasketSerializer(serializers.ModelSerializer):
+    """
+    Сериализатор корзины пользователя.
+    """
+
     class Meta:
         model = BasketItem
         fields = (
@@ -65,10 +66,16 @@ class BasketSerializer(serializers.ModelSerializer):
 
 
     def to_representation(self, instance):
-        # instance = product_id
-        product = Product.objects.get(pk=instance)
-        data = ProductSerializer(product)
-        serializer = ProductBasketSerializer(data)
 
-        return instance
+        product = Product.objects.get(pk=int(instance))
+        product_basket_serializer = ProductBasketSerializer(product, context={'count': self.instance.get(f'{instance}').get('count')})
 
+        return product_basket_serializer.data
+
+# # instance = product_id
+#product_serializer = ProductSerializer(product)
+
+# data = ProductSerializer(product)
+# serializer = ProductBasketSerializer(data)
+#
+#return instance
