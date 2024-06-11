@@ -72,6 +72,9 @@ class BasketSerializer(serializers.ModelSerializer):
 
         return product_basket_serializer.data
 
+
+
+
 # # instance = product_id
 #product_serializer = ProductSerializer(product)
 
