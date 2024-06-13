@@ -66,9 +66,13 @@ class BasketSerializer(serializers.ModelSerializer):
 
 
     def to_representation(self, instance):
-
-        product = Product.objects.get(pk=int(instance))
-        product_basket_serializer = ProductBasketSerializer(product, context={'count': self.instance.get(f'{instance}').get('count')})
+        if isinstance(instance, dict):
+            product = instance["product"]
+            count = instance["count"]
+        else:
+            product = instance.product
+            count = instance.count
+        product_basket_serializer = ProductBasketSerializer(product, context={'count': count})
 
         return product_basket_serializer.data
 

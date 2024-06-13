@@ -24,7 +24,10 @@
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="49c0583f-a6db-442d-b55e-d59b614e36b5" object-ref="schemas/main/tables/usercart_basketitem" />
+      <object connection-id="49c0583f-a6db-442d-b55e-d59b614e36b5" object-ref="schemas/main/tables/usercart_usercart" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="49c0583f-a6db-442d-b55e-d59b614e36b5" />
@@ -59,7 +62,7 @@
           <description value="" />
           <database-type value="SQLITE" />
           <config-type value="BASIC" />
-          <database-version value="3.44" />
+          <database-version value="3.45" />
           <driver-source value="BUNDLED" />
           <driver-library value="" />
           <driver value="" />
@@ -156,6 +159,7 @@
         <display-mode value="TABBED" />
         <navigation-history-size value="100" />
         <show-object-details value="false" />
+        <enable-sticky-paths value="true" />
       </general>
       <filters>
         <object-type-filter>

@@ -95,3 +95,10 @@ class UserBasket(object):
                 prod['price'],
             ) * prod['count'] for prod in self.cart.values()],
         )
+
+    def to_rep(self):
+        l = []
+        for product_pk, val in self.cart.items():
+            l.append({"product": Product.objects.get(pk=product_pk), "count": val["count"]})
+            # l.append(a)
+        return l
