@@ -12,7 +12,7 @@
   <component name="DBNavigator.Project.DatabaseBrowserManager">
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
-    <show-object-properties value="true" />
+    <show-object-properties value="false" />
     <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
@@ -25,19 +25,22 @@
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
     <open-files>
-      <object connection-id="49c0583f-a6db-442d-b55e-d59b614e36b5" object-ref="schemas/main/tables/usercart_basketitem" />
-      <object connection-id="49c0583f-a6db-442d-b55e-d59b614e36b5" object-ref="schemas/main/tables/usercart_usercart" />
+      <object connection-id="49c0583f-a6db-442d-b55e-d59b614e36b5" object-ref="schemas/main/tables/orders_ordersdeliverytype" />
+      <object connection-id="49c0583f-a6db-442d-b55e-d59b614e36b5" object-ref="schemas/main/tables/orders_order" />
     </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="49c0583f-a6db-442d-b55e-d59b614e36b5" />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="49c0583f-a6db-442d-b55e-d59b614e36b5" dataset="main.userprofile_userprofile" active-filter-id="" />
     <filter-actions connection-id="49c0583f-a6db-442d-b55e-d59b614e36b5" dataset="main.orders_order" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="49c0583f-a6db-442d-b55e-d59b614e36b5" dataset="main.orders_ordersdeliverytype" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="49c0583f-a6db-442d-b55e-d59b614e36b5" dataset="main.usercart_basketitem" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="49c0583f-a6db-442d-b55e-d59b614e36b5" dataset="main.product_product" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="49c0583f-a6db-442d-b55e-d59b614e36b5" dataset="main.orders_order_products" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="49c0583f-a6db-442d-b55e-d59b614e36b5" dataset="main.usercart_usercart" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="49c0583f-a6db-442d-b55e-d59b614e36b5" dataset="main.orders_orderscountproducts" active-filter-id="EMPTY_FILTER" />
   </component>
   <component name="DBNavigator.Project.ExecutionManager">
     <retain-sticky-names value="false" />
@@ -62,7 +65,7 @@
           <description value="" />
           <database-type value="SQLITE" />
           <config-type value="BASIC" />
-          <database-version value="3.45" />
+          <database-version value="3.44" />
           <driver-source value="BUNDLED" />
           <driver-library value="" />
           <driver value="" />

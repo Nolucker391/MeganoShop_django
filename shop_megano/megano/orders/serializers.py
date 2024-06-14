@@ -1,3 +1,4 @@
+import datetime
 
 from rest_framework import serializers
 from .models import Order
@@ -22,19 +23,29 @@ class OrdersSerializer(serializers.ModelSerializer):
             'phone',
             'createdAt',
         )
+
     products = ProductSerializer(
         many=True,
         required=True,
     )
-    fullName = serializers.SerializerMethodField()
-    email = serializers.SerializerMethodField()
-    phone = serializers.SerializerMethodField()
 
-    def get_fullName(self, instance):
-        return instance.user.userprofile.fullName
+    # fullName = serializers.SerializerMethodField()
+    # email = serializers.SerializerMethodField()
+    # phone = serializers.SerializerMethodField()
+    #
+    # def get_fullName(self, instance):
+    #     return instance.user.userprofile.fullName
+    #
+    # def get_email(self, instance):
+    #     return instance.user.userprofile.email
+    #
+    # def get_phone(self, instance):
+    #     return instance.user.userprofile.phone
 
-    def get_email(self, instance):
-        return instance.user.userprofile.email
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
 
-    def get_phone(self, instance):
-        return instance.user.userprofile.phone
+        date = datetime.datetime.fromisoformat(data['createdAt'])
+        data['createdAt'] = date.strftime('%Y-%m-%d %H:%M')
+
+        return data

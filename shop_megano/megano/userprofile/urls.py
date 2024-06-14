@@ -17,6 +17,3 @@ urlpatterns = [
     path('api/profile/password', UserPasswordChange.as_view(), name='password-change'),
     path('api/profile/avatar', UserAvatarUpdate.as_view(), name='avatar-update'),
 ]
-
-
-

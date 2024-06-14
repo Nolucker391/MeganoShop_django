@@ -83,35 +83,17 @@ class UserBasketView(APIView):
 
             basket_list = BasketItem.objects.filter(basket=user_basket)
 
-            if basket_list.exists():
+            # print(basket_list)
+            # print(basket_list.filter(product__pk=product.pk))
+
+            if product in (e.product for e in basket_list.filter(product=product)):
                 for item in basket_list:
-                    print('first moment', item.product.pk)
                     if item.product.pk == data['id']:
-                        print('second moment', item.product.pk)
-            # if product in basket_list.filter(product=product):
-            #     for item in basket_list:
-            #         if item.product.pk == data['id']:
-            #             item.count += data['count']
-            #             item.save()
+                        item.count += data['count']
+                        item.save()
             else:
-            #     pass
-                print(product)
                 basket_item = BasketItem(product=product, count=data['count'], basket=user_basket)
-                print(basket_item)
-                print(basket_list)
                 basket_item.save()
-                print(basket_list)
-
-                # basket_list = basket_item
-                # if basket_list:
-                #     basket_list = [*basket_list, basket_item]
-                # else:
-                #     basket_list = [basket_item]
-                # print(basket_list)
-                # basket_list.insert(0, basket_item)
-
-            # for i in basket_list:
-            #     print('product: ', i.product, 'count:', i.count)
 
             return products_in_basket(basket_list)
 
@@ -131,12 +113,13 @@ class UserBasketView(APIView):
             #return products_in_basket(cart.to_rep())
             return products_in_basket(cart.to_rep())
         else:
-
             user_cart = UserCart.objects.get(user=self.request.user)
             user_basket = BasketItem.objects.filter(basket=user_cart)
 
             basket_list = []
+
             for item in user_basket:
+                # print(item)
                 basket_list.append(item)
 
             return products_in_basket(basket_list)
@@ -162,20 +145,16 @@ class UserBasketView(APIView):
             return products_in_basket(cart)
         else:
             user_cart = UserCart.objects.get(user=self.request.user)
-            product = get_object_or_404(
-                Product,
-                id=self.request.data.get('id'),
-            )
             count = self.request.data.get('count')
+            basket_list = BasketItem.objects.filter(basket=user_cart)
 
-            user_basket_items = BasketItem.objects.filter(basket=user_cart, product=product, count=count)
-            user_basket_items.delete()
+            # if product in (e.product for e in basket_list.filter(product=product)):
+            basket_item = BasketItem.objects.get(basket=user_cart, product__pk=int(self.request.data.get('id')))
 
-            format_dict = {}
-            for items in user_basket_items.all():
-                format_dict[f'{items.product_id}'] = {
-                    f'count': items.count,
-                }
+            basket_item.count = max(basket_item.count - count, 0)
+            if basket_item.count == 0:
+                basket_item.delete()
+            else:
+                basket_item.save()
 
-            return products_in_basket(format_dict)
-            #return Response(status=200)
+            return products_in_basket(basket_list)

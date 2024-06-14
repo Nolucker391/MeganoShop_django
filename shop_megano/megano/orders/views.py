@@ -4,13 +4,11 @@ from rest_framework.views import APIView
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from usercart.cart import UserBasket
-from .models import Order, OrdersCountProducts
+from .models import Order, OrdersCountProducts, OrdersDeliveryType
 from product.models import Product
 from .serializers import OrdersSerializer
 
-from usercart.models import UserCart
-from usercart.models import BasketItem
+from usercart.models import UserCart, BasketItem
 
 
 class OrdersList(APIView):
@@ -30,15 +28,30 @@ class OrdersList(APIView):
 
 
     def post(self, request: Request, *args, **kwargs):
-        data = request.data
+        """
+        Функция для оформления заказа.
+
+        :param request:
+        :param args:
+        :param kwargs:
+        :return:
+        """
+        data = request.data #прилетает запрос оформить заказ, продукта'ов'
+
         products_in_order = [
             (obj['id'], obj['count'], obj['price']) for obj in data
-        ]
-        products_pk = [product_id[0] for product_id in products_in_order]
-        products = Product.objects.filter(id__in=products_pk)
+        ] # берем нужные параметры с запроса
+
+        products_pk = [product_id[0] for product_id in products_in_order] # берем id продуктов
+
+        products = Product.objects.filter(id__in=products_pk) #фильтруем по pk продукты
+        sum = 0
+        for prod in products:
+            sum += prod.price
+
         order = Order.objects.create(
             user=request.user,
-            totalCost=UserBasket(request).total_summ(),
+            totalCost=sum,
         )
         order.products.set(products)
         order.save()
@@ -51,32 +64,53 @@ class OrderDetails(APIView):
     """
     Класс для отображения деталей заказа.
     """
+
     def get(self, request: Request, pk):
 
         data = Order.objects.get(pk=pk)
+
         serializer = OrdersSerializer(data)
         usercart = UserCart.objects.get(user=request.user)
         data = serializer.data
-        products_in_order = data['products']
+        product_in_request_order = data['products']
 
-        for product in products_in_order:
-            basket = BasketItem.objects.filter(product_id=product['id'], basket=usercart)
-            for item in basket:
-                product['count'] = item.count
+        for item in product_in_request_order:
+            basket_product = BasketItem.objects.filter(basket=usercart, product__pk=int(item['id']))
+            for value in basket_product:
+                item['count'] = value.count
 
         return Response(data)
 
     def post(self, request: Request, pk) -> Response:
+        """
+        Функция для оформления заказа.
+        :param request:
+        :param pk:
+        :return:
+        """
         data = request.data
         order = Order.objects.get(pk=pk)
         order.fullName = data['fullName']
         order.phone = data['phone']
         order.email = data['email']
-        order.deliveryType = data['deliveryType']
         order.city = data['city']
         order.address = data['address']
         order.paymentType = data['paymentType']
         order.status = 'awaiting'
+        # a = OrdersDeliveryType(deliveryType=data['deliveryType'])
+        # a.save() deliveryType='ordinary
+        # order.deliveryType = a
+
+        if data['deliveryType'] is None:
+            order_delivery = OrdersDeliveryType.objects.get_or_create(deliveryType='ordinary')
+            order_delivery.save()
+            order.deliveryType = order_delivery
+        else:
+            order_delivery = OrdersDeliveryType.objects.get_or_create(deliveryType=data['deliveryType'])
+            order_delivery.save()
+            order.deliveryType = order_delivery
+
+
 
         for product in data['products']:
             OrdersCountProducts.objects.get_or_create(
@@ -84,8 +118,7 @@ class OrderDetails(APIView):
                 product_id=product['id'],
                 count=product['count'],
             )
-        # order.save()
-
+        # # order.save()
         if data['deliveryType'] is not None:
             if data['deliveryType'] == 'express':
                 order.totalCost += 500
@@ -94,12 +127,16 @@ class OrderDetails(APIView):
                 order.totalCost += 200
         order.save()
 
+        UserCart.objects.get(user=request.user).delete()
+
         return Response(data, status=status.HTTP_201_CREATED)
+
 
 class Payment(APIView):
     """
     Класс для оплаты заказа.
     """
+
     def post(self, request: Request, pk):
         order = Order.objects.get(pk=pk)
         print(order.__dict__)
