@@ -42,10 +42,10 @@ class OrdersSerializer(serializers.ModelSerializer):
     # def get_phone(self, instance):
     #     return instance.user.userprofile.phone
 
-    def to_representation(self, instance):
-        data = super().to_representation(instance)
-
-        date = datetime.datetime.fromisoformat(data['createdAt'])
-        data['createdAt'] = date.strftime('%Y-%m-%d %H:%M')
-
-        return data
+    # def to_representation(self, instance):
+    #     data = super().to_representation(instance)
+    #
+    #     date = datetime.datetime.fromisoformat(data['createdAt'])
+    #     data['createdAt'] = date.strftime('%Y-%m-%d %H:%M')
+    #
+    #     return data

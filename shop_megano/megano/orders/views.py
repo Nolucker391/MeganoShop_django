@@ -102,14 +102,17 @@ class OrderDetails(APIView):
         # order.deliveryType = a
 
         if data['deliveryType'] is None:
-            order_delivery = OrdersDeliveryType.objects.get_or_create(deliveryType='ordinary')
-            order_delivery.save()
-            order.deliveryType = order_delivery
+            # order_delivery = OrdersDeliveryType.objects.get_or_create(deliveryType='ordinary')
+            order_delivery, _ = OrdersDeliveryType.objects.get_or_create(deliveryType='ordinary')
+            # order_delivery.save()
+            # order.deliveryType = order_delivery
         else:
-            order_delivery = OrdersDeliveryType.objects.get_or_create(deliveryType=data['deliveryType'])
-            order_delivery.save()
-            order.deliveryType = order_delivery
-
+            order_delivery, _ = OrdersDeliveryType.objects.get_or_create(deliveryType=data['deliveryType'])
+            # order_delivery = OrdersDeliveryType.objects.get_or_create(deliveryType=data['deliveryType'])
+            # order_delivery.save()
+            # order.deliveryType = order_delivery
+        order.deliveryType = order_delivery
+        order.save()
 
 
         for product in data['products']:
