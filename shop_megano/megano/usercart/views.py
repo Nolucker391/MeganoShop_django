@@ -1,3 +1,4 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render
 from rest_framework.request import Request
 from rest_framework.response import Response
@@ -113,9 +114,11 @@ class UserBasketView(APIView):
             #return products_in_basket(cart.to_rep())
             return products_in_basket(cart.to_rep())
         else:
-            user_cart = UserCart.objects.get(user=self.request.user)
-            user_basket = BasketItem.objects.filter(basket=user_cart)
-
+            try:
+                user_cart = UserCart.objects.get(user=self.request.user)
+                user_basket = BasketItem.objects.filter(basket=user_cart)
+            except ObjectDoesNotExist:
+                return Response('Not exist', status=500)
             basket_list = []
 
             for item in user_basket:
