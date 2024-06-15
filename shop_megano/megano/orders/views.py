@@ -1,5 +1,10 @@
-from django.shortcuts import render
+import json
+
+from django.contrib.auth import login
+from django.shortcuts import render, redirect
 from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.reverse import reverse_lazy
 from rest_framework.views import APIView
 from rest_framework.request import Request
 from rest_framework.response import Response
@@ -9,6 +14,7 @@ from product.models import Product
 from .serializers import OrdersSerializer
 
 from usercart.models import UserCart, BasketItem
+
 
 
 class OrdersList(APIView):
@@ -36,29 +42,34 @@ class OrdersList(APIView):
         :param kwargs:
         :return:
         """
-        data = request.data #прилетает запрос оформить заказ, продукта'ов'
+        if request.user.is_authenticated:
+            data = request.data #прилетает запрос оформить заказ, продукта'ов'
 
-        products_in_order = [
-            (obj['id'], obj['count'], obj['price']) for obj in data
-        ] # берем нужные параметры с запроса
+            products_in_order = [
+                (obj['id'], obj['count'], obj['price']) for obj in data
+            ] # берем нужные параметры с запроса
 
-        products_pk = [product_id[0] for product_id in products_in_order] # берем id продуктов
+            products_pk = [product_id[0] for product_id in products_in_order] # берем id продуктов
 
-        products = Product.objects.filter(id__in=products_pk) #фильтруем по pk продукты
-        sum = 0
-        for prod in products:
-            sum += prod.price
+            products = Product.objects.filter(id__in=products_pk) #фильтруем по pk продукты
+            sum = 0
+            for prod in products:
+                sum += prod.price
 
-        order = Order.objects.create(
-            user=request.user,
-            totalCost=sum,
-        )
-        order.products.set(products)
-        order.save()
+            order = Order.objects.create(
+                user=request.user,
+                totalCost=sum,
+            )
+            order.products.set(products)
+            order.save()
 
-        return Response({
-            'orderId': order.pk
-        })
+            return Response({
+                'orderId': order.pk
+            })
+        else:
+            return Response('Bad request', status=500)
+            # return redirect('userprofile:register')
+
 
 class OrderDetails(APIView):
     """

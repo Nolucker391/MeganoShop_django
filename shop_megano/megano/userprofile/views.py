@@ -63,7 +63,6 @@ def UserLogin(request: Request):
     else:
         return Response(data=serializer.errors, status=500)
 
-
 @api_view(["POST"])
 def UserRegister(request: Request):
     """
@@ -81,10 +80,19 @@ def UserRegister(request: Request):
         user_basket, _ = UserCart.objects.get_or_create(user=request.user)
 
         for product_id, details in session_cart_data.items():
-            product = Product.objects.get(pk=int(product_id))
-            basket_item = BasketItem(product=product, count=details['count'], basket=user_basket)
 
-            basket_item.save()
+            product = Product.objects.get(pk=int(product_id))
+            existing_basket_item = BasketItem.objects.filter(product=product, basket=user_basket)
+
+            if existing_basket_item.exists():
+                for basket_item in existing_basket_item:
+                    basket_item.count += details['count']
+                    basket_item.save()
+                # existing_basket_item.update(count=details['count'])
+            else:
+                basket_item = BasketItem(product=product, count=details['count'], basket=user_basket)
+
+                basket_item.save()
 
         return Response(
             'Успешно зарегистрирован!',

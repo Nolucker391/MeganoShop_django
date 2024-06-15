@@ -5,8 +5,10 @@ from .views import (
     UserRegister,
     UserProfileDetails,
     UserAvatarUpdate,
-    UserPasswordChange
+    UserPasswordChange,
 )
+
+# app_name = 'userprofile'
 
 urlpatterns = [
     path('api/sign-in', UserLogin, name='login'),
