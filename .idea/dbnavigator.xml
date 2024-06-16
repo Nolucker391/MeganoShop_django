@@ -24,7 +24,11 @@
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="49c0583f-a6db-442d-b55e-d59b614e36b5" object-ref="schemas/main/tables/orders_orderscountproducts" />
+      <object connection-id="49c0583f-a6db-442d-b55e-d59b614e36b5" object-ref="schemas/main/tables/orders_order" />
+      <object connection-id="49c0583f-a6db-442d-b55e-d59b614e36b5" object-ref="schemas/main/tables/orders_ordersdeliverytype" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="49c0583f-a6db-442d-b55e-d59b614e36b5" />
