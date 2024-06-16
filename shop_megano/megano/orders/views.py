@@ -16,11 +16,11 @@ from .serializers import OrdersSerializer
 from usercart.models import UserCart, BasketItem
 
 
-
 class OrdersList(APIView):
     """
     Класс для отображения историй заказов.
     """
+
     def get(self, request: Request):
         """
         Функция для отображения списка заказов.
@@ -31,7 +31,6 @@ class OrdersList(APIView):
         serialized = OrdersSerializer(orders, many=True)
 
         return Response(serialized.data)
-
 
     def post(self, request: Request, *args, **kwargs):
         """
@@ -47,45 +46,27 @@ class OrdersList(APIView):
             products_in_order = [
                 (obj['id'], obj['count'], obj['price']) for obj in data
             ]
-            products_pk = [product_id[0] for product_id in products_in_order]
-            products = Product.objects.filter(id__in=products_pk)
+            products = Product.objects.filter(id__in=[product_id[0] for product_id in products_in_order])
 
-            order = Order.objects.get_or_create(
+            order = Order.objects.create(
                 user=request.user,
             )
 
-            order[0].products.set(products)
-            order[0].save()
+            for index in range(len(products_in_order)):
+                pk, count, price = products_in_order[index]
+                product = products[index]
+                OrdersCountProducts.objects.create(order=order, product=product, count=count)
+
+            order.save()
+
+            UserCart.objects.get(user=request.user).delete()
+
             return Response({
-                'orderId': order[0].pk
+                'orderId': order.pk
             })
-            # data = request.data #прилетает запрос оформить заказ, продукта'ов'
-            #
-            # products_in_order = [
-            #     (obj['id'], obj['count'], obj['price']) for obj in data
-            # ] # берем нужные параметры с запроса
-            #
-            # products_pk = [product_id[0] for product_id in products_in_order] # берем id продуктов
-            # products = Product.objects.filter(id__in=products_pk) #фильтруем по pk продукты
-            #
-            # sum_order = 0
-            #
-            # for index in products_in_order:
-            #     sum_order += index[2]
-            #
-            # order = Order.objects.create(
-            #     user=request.user,
-            #     totalCost=sum_order,
-            # )
-            # order.products.set(products)
-            # order.save()
-            #
-            # return Response({
-            #     'orderId': order.pk
-            # })
+
         else:
             return Response('Bad request', status=500)
-            # return redirect('userprofile:register')
 
 
 class OrderDetails(APIView):
@@ -95,40 +76,10 @@ class OrderDetails(APIView):
 
     def get(self, request: Request, pk):
         data = Order.objects.get(pk=pk)
+        # print(data.products)
+        # print(OrdersCountProducts.objects.get(order=data).product)
         serializer = OrdersSerializer(data)
-
-        # usercart = UserCart.objects.get(user=request.user)
-        # data = serializer.data
-        # product_in_request_order = data['products']
-        #
-        # for item in product_in_request_order:
-        #     basket_product = BasketItem.objects.filter(basket=usercart, product__pk=int(item['id']))
-        #     for value in basket_product:
-        #         item['count'] = value.count
-
         return Response(serializer.data)
-
-        # data = Order.objects.get(pk=pk)
-        # serializer = OrdersSerializer(data)
-        # usercart = UserCart.objects.get(user=request.user)
-        # data = serializer.data
-        # basket_product = BasketItem.objects.filter(basket=usercart)
-        #
-        # for item in basket_product:
-        #     print(item.product_id)
-        #     products = Product.objects.filter(pk=item.product_id)
-        #     for prod in products:
-        #         data['products']
-        #
-        # print(data)
-        # product_in_request_order = data['products']
-        #
-        # for item in product_in_request_order:
-        #     basket_product = BasketItem.objects.filter(basket=usercart, product__pk=int(item['id']))
-        #     for value in basket_product:
-        #         item['count'] = value.count
-
-        #return Response(data)
 
     def post(self, request: Request, pk) -> Response:
         """
@@ -145,41 +96,24 @@ class OrderDetails(APIView):
         order.city = data['city']
         order.address = data['address']
         order.paymentType = data['paymentType']
-        order.status = 'awaiting'
-        # a = OrdersDeliveryType(deliveryType=data['deliveryType'])
-        # a.save() deliveryType='ordinary
-        # order.deliveryType = a
+        order.status = Order.CHOICES[0][1]
 
         if data['deliveryType'] is None:
-            # order_delivery = OrdersDeliveryType.objects.get_or_create(deliveryType='ordinary')
             order_delivery, _ = OrdersDeliveryType.objects.get_or_create(deliveryType='ordinary')
-            # order_delivery.save()
-            # order.deliveryType = order_delivery
+
         else:
             order_delivery, _ = OrdersDeliveryType.objects.get_or_create(deliveryType=data['deliveryType'])
-            # order_delivery = OrdersDeliveryType.objects.get_or_create(deliveryType=data['deliveryType'])
-            # order_delivery.save()
-            # order.deliveryType = order_delivery
+
         order.deliveryType = order_delivery
+
         order.save()
 
-
-        for product in data['products']:
-            OrdersCountProducts.objects.get_or_create(
-                order_id=order.pk,
-                product_id=product['id'],
-                count=product['count'],
-            )
-        # # order.save()
         if data['deliveryType'] is not None:
             if data['deliveryType'] == 'express':
                 order.totalCost += 500
         else:
             if order.totalCost < 2000:
                 order.totalCost += 200
-        order.save()
-
-        UserCart.objects.get(user=request.user).delete()
 
         return Response(data, status=status.HTTP_201_CREATED)
 
@@ -198,5 +132,3 @@ class Payment(APIView):
         usercart.delete()
 
         return Response(request.data, status=200)
-
-

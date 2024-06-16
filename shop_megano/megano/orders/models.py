@@ -79,15 +79,34 @@ class Order(models.Model):
         through='OrdersCountProducts',
     )
 
+
+    def save(
+        self, *args, **kwargs
+    ):
+        print(self.__dict__)
+
+        if self.pk:
+            old_products = Order.objects.get(pk=self.pk).products
+            # print(old_products)
+            # print(self.products)
+            if self.products != old_products:
+                new_total = sum([product.price for product in old_products])
+                self.totalCost = new_total
+        super().save()
+
+
+
 class OrdersCountProducts(models.Model):
 
     order = models.ForeignKey(
         Order,
         on_delete=models.CASCADE,
+        # related_name='product',
     )
     product = models.ForeignKey(
         Product,
         on_delete=models.PROTECT,
+        related_name='product',
     )
     count = models.PositiveIntegerField(
         null=True,
