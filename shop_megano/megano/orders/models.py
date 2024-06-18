@@ -83,15 +83,13 @@ class Order(models.Model):
     def save(
         self, *args, **kwargs
     ):
-        print(self.__dict__)
-
         if self.pk:
-            old_products = Order.objects.get(pk=self.pk).products
-            # print(old_products)
-            # print(self.products)
-            if self.products != old_products:
-                new_total = sum([product.price for product in old_products])
-                self.totalCost = new_total
+            order = Order.objects.get(pk=self.pk)
+            pro = OrdersCountProducts.objects.filter(order=order)
+
+            new_total = sum([index.product.price for index in pro])
+            self.totalCost = new_total
+
         super().save()
 
 

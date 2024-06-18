@@ -1,7 +1,7 @@
 import datetime
 
 from rest_framework import serializers
-from .models import Order, OrdersCountProducts
+from .models import Order, OrdersCountProducts, OrdersDeliveryType
 from product.serializers import ProductSerializer
 
 from product.models import Product
@@ -54,15 +54,21 @@ class OrdersSerializer(serializers.ModelSerializer):
 
         data = super().to_representation(instance)
         data['products'] = order_product_serializer.data
+        date = datetime.datetime.fromisoformat(data['createdAt'])
+        data['createdAt'] = date.strftime('%Y-%m-%d %H:%M')
+        # data['deliveryType'] = OrdersDeliveryType.objects.get(id=data['deliveryType']).deliveryType
+
+        if data['deliveryType'] is None:
+            data['deliveryType'] = 'ordinary'
+        else:
+            data['deliveryType'] = OrdersDeliveryType.objects.get(id=int(data['deliveryType'])).deliveryType
+
         return data
 
         # data = super().to_representation(instance)
         # date = datetime.datetime.fromisoformat(data['createdAt'])
         # data['createdAt'] = date.strftime('%Y-%m-%d %H:%M')
         #
-        # if data['deliveryType'] == 2:
-        #     data['deliveryType'] = 'ordinary'
-        # else:
-        #     data['deliveryType'] = 'express'
+
         #
         # return data

@@ -96,6 +96,8 @@ class OrderDetails(APIView):
         order.city = data['city']
         order.address = data['address']
         order.paymentType = data['paymentType']
+        # print(data['totalCost'])
+        # order.totalCost = data['totalCost']
         order.status = Order.CHOICES[0][1]
 
         if data['deliveryType'] is None:
