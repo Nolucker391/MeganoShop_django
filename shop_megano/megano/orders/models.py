@@ -10,6 +10,8 @@ class OrdersDeliveryType(models.Model):
         max_length=100,
         default='',
     )
+    # cost =
+    # type = choices
 
 
 
@@ -48,7 +50,7 @@ class Order(models.Model):
 
     totalCost = models.DecimalField(
         max_digits=8,
-        default=1,
+        default=0.0,
         decimal_places=2,
     )
 
@@ -87,11 +89,35 @@ class Order(models.Model):
             order = Order.objects.get(pk=self.pk)
             pro = OrdersCountProducts.objects.filter(order=order)
 
-            new_total = sum([index.product.price for index in pro])
-            self.totalCost = new_total
+            delivery_price = 0
+            # delivery = delivery_price if self.totalCost else 0
 
+            if self.totalCost:
+                if self.deliveryType.deliveryType == 'express':
+                    delivery_price = 500
+                else:
+                    if self.totalCost < 2000:
+                        delivery_price = 200
+            else:
+                delivery_price = 0
+            # if self.deliveryType is not None:
+            #     if self.deliveryType.deliveryType == 'express':
+            #         print('express')
+            #         delivery_price = 500
+            #     else:
+            #         print('ordinary')
+            #         if self.totalCost < 2000:
+            #             delivery_price = 200
+
+            new_total = sum([index.product.price * index.count for index in pro]) + delivery_price
+            self.totalCost = new_total
         super().save()
 
+            # if self.totalCost:
+            #     self.totalCost += delivery_price
+            # else:
+            #     new_total = sum([index.product.price * index.count for index in pro])
+            #     self.totalCost = new_total
 
 
 class OrdersCountProducts(models.Model):

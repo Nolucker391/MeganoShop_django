@@ -103,6 +103,7 @@ class Product(models.Model):
     freeDelivery = models.BooleanField(default=True) # бесплатная доставка
     limited_edition = models.BooleanField(default=False) # ограниченое количество
     fullDescription = models.TextField(null=False,blank=True) # полное описание
+    sale_status = models.BooleanField(default=False)
     category = models.ForeignKey(
         CategoryProduct,
         on_delete=models.SET_NULL,
@@ -110,6 +111,16 @@ class Product(models.Model):
         blank=True,
         related_name='products',
     )
+
+    # sale1 = models.ForeignKey(
+    #     Sale,
+    #     default=False,
+    #     null=True,
+    #     related_name='sales',
+    # )
+    # def get_curr_price(self):
+    #     print(self)
+
 
 class ProductImage(models.Model):
     '''
@@ -245,4 +256,8 @@ class Sale(models.Model):
     def title(self):
         return self.product.title
 
+    def save(self, *args, **kwargs):
+        if self.pk is None:
+            self.product.sale_status = True
 
+        super().save(*args, **kwargs)

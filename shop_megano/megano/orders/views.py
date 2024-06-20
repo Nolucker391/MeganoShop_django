@@ -15,6 +15,8 @@ from .serializers import OrdersSerializer
 
 from usercart.models import UserCart, BasketItem
 
+from product.models import Sale
+
 
 class OrdersList(APIView):
     """
@@ -55,6 +57,8 @@ class OrdersList(APIView):
             for index in range(len(products_in_order)):
                 pk, count, price = products_in_order[index]
                 product = products[index]
+                print(Sale.objects.get(product=product).salePrice)
+                print(product.sales)
                 OrdersCountProducts.objects.create(order=order, product=product, count=count)
 
             order.save()
@@ -83,7 +87,7 @@ class OrderDetails(APIView):
 
     def post(self, request: Request, pk) -> Response:
         """
-        Функция для оформления заказа.
+        Функция для оформления деталей заказа.
         :param request:
         :param pk:
         :return:
@@ -96,8 +100,6 @@ class OrderDetails(APIView):
         order.city = data['city']
         order.address = data['address']
         order.paymentType = data['paymentType']
-        # print(data['totalCost'])
-        # order.totalCost = data['totalCost']
         order.status = Order.CHOICES[0][1]
 
         if data['deliveryType'] is None:
@@ -109,13 +111,6 @@ class OrderDetails(APIView):
         order.deliveryType = order_delivery
 
         order.save()
-
-        if data['deliveryType'] is not None:
-            if data['deliveryType'] == 'express':
-                order.totalCost += 500
-        else:
-            if order.totalCost < 2000:
-                order.totalCost += 200
 
         return Response(data, status=status.HTTP_201_CREATED)
 
@@ -130,7 +125,7 @@ class Payment(APIView):
         print(order.__dict__)
         order.status = 'accepted'
         order.save()
-        usercart = UserCart.objects.get(user=request.user)
-        usercart.delete()
+        # usercart = UserCart.objects.get(user=request.user)
+        # usercart.delete()
 
         return Response(request.data, status=200)
