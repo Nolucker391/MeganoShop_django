@@ -8,6 +8,8 @@ from rest_framework.reverse import reverse_lazy
 from rest_framework.views import APIView
 from rest_framework.request import Request
 from rest_framework.response import Response
+from django.http import HttpResponseRedirect
+
 
 from .models import Order, OrdersCountProducts, OrdersDeliveryType
 from product.models import Product
@@ -57,8 +59,8 @@ class OrdersList(APIView):
             for index in range(len(products_in_order)):
                 pk, count, price = products_in_order[index]
                 product = products[index]
-                print(Sale.objects.get(product=product).salePrice)
-                print(product.sales)
+
+                print(product.get_curr_price())
                 OrdersCountProducts.objects.create(order=order, product=product, count=count)
 
             order.save()
@@ -70,6 +72,8 @@ class OrdersList(APIView):
             })
 
         else:
+            # return HttpResponseRedirect(redirect_to="/sign-in/")
+            # return redirect("http://127.0.0.1:8000/sign-in/")
             return Response('Bad request', status=500)
 
 

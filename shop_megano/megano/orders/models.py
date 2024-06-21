@@ -109,7 +109,7 @@ class Order(models.Model):
             #         if self.totalCost < 2000:
             #             delivery_price = 200
 
-            new_total = sum([index.product.price * index.count for index in pro]) + delivery_price
+            new_total = sum([index.product.get_curr_price() * index.count for index in pro]) + delivery_price
             self.totalCost = new_total
         super().save()
 

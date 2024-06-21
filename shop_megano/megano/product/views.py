@@ -90,6 +90,7 @@ class ProductsListView(ListAPIView):
 
         products_list = Product.objects.filter(**filter_dict)
 
+        print(products_list)
         if request.GET.get('sortType') == 'inc':
             sortType = '-'
         else:

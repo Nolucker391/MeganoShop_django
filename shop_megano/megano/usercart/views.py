@@ -27,6 +27,7 @@ def products_in_basket(cart: UserBasket):
     """
 
     cart_object = cart
+
     serializer = BasketSerializer(
         cart_object,
         many=True,
@@ -113,6 +114,7 @@ class UserBasketView(APIView):
 
             #return products_in_basket(cart.to_rep())
             return products_in_basket(cart.to_rep())
+
         else:
             try:
                 user_cart = UserCart.objects.get(user=self.request.user)
@@ -145,7 +147,7 @@ class UserBasketView(APIView):
 
             cart.remove(product, count=count)
 
-            return products_in_basket(cart)
+            return products_in_basket(cart.to_rep())
         else:
             user_cart = UserCart.objects.get(user=self.request.user)
             count = self.request.data.get('count')

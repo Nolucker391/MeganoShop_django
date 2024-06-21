@@ -136,6 +136,12 @@ class SalesSerializer(serializers.ModelSerializer):
     dateFrom = serializers.DateField(format='%d-%m')
     dateTo = serializers.DateField(format='%d-%m')
 
+    def to_representation(self, instance):
+        res = super().to_representation(instance)
+        res['id'] = instance.product.pk
+
+        return res
+
     def get_images(self, instance):
         images = []
         for image in instance.product.images.all():

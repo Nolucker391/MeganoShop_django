@@ -118,8 +118,11 @@ class Product(models.Model):
     #     null=True,
     #     related_name='sales',
     # )
-    # def get_curr_price(self):
-    #     print(self)
+    def get_curr_price(self):
+        if self.sale_status:
+            return Sale.objects.filter(product=self)[0].salePrice
+        else:
+            return self.price
 
 
 class ProductImage(models.Model):
