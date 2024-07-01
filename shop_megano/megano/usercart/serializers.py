@@ -4,27 +4,28 @@ from product.models import Product
 from usercart.models import BasketItem, UserCart
 from product.serializers import ProductSerializer
 
+
 class ProductBasketSerializer(serializers.ModelSerializer):
     """
-        Сериализация продуктов с корзины.
+    Сериализация продуктов с корзины.
     """
 
     class Meta:
         model = Product
         fields = (
-            'id',
-            'category',
-            'price',
-            'count',
-            'date',
-            'title',
-            'description',
-            'fullDescription',
-            'freeDelivery',
-            'specifications',
-            'tags',
-            'images',
-            'reviews'
+            "id",
+            "category",
+            "price",
+            "count",
+            "date",
+            "title",
+            "description",
+            "fullDescription",
+            "freeDelivery",
+            "specifications",
+            "tags",
+            "images",
+            "reviews",
         )
 
     count = serializers.SerializerMethodField()
@@ -32,8 +33,8 @@ class ProductBasketSerializer(serializers.ModelSerializer):
     images = serializers.SerializerMethodField()
 
     def get_count(self, instance):
-        return self.context.get('count')
-        #return self.context.get(str(instance.pk)).get('count')
+        return self.context.get("count")
+        # return self.context.get(str(instance.pk)).get('count')
 
     def get_price(self, instance):
         sale_price = instance.sales.first()
@@ -46,8 +47,7 @@ class ProductBasketSerializer(serializers.ModelSerializer):
         images = []
         for image in instance.images.all():
             images.append(
-                {'src': f'/media/{image.__str__()}',
-                 'alt': image.name},
+                {"src": f"/media/{image.__str__()}", "alt": image.name},
             )
         return images
 
@@ -59,11 +59,7 @@ class BasketSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BasketItem
-        fields = (
-            'product',#'cart': {'14':
-            'count' # {'count': 1,
-        )
-
+        fields = ("product", "count")  #'cart': {'14':  # {'count': 1,
 
     def to_representation(self, instance):
         if isinstance(instance, dict):
@@ -72,17 +68,17 @@ class BasketSerializer(serializers.ModelSerializer):
         else:
             product = instance.product
             count = instance.count
-        product_basket_serializer = ProductBasketSerializer(product, context={'count': count})
+        product_basket_serializer = ProductBasketSerializer(
+            product, context={"count": count}
+        )
 
         return product_basket_serializer.data
 
 
-
-
 # # instance = product_id
-#product_serializer = ProductSerializer(product)
+# product_serializer = ProductSerializer(product)
 
 # data = ProductSerializer(product)
 # serializer = ProductBasketSerializer(data)
 #
-#return instance
+# return instance

@@ -4,6 +4,7 @@ from rest_framework.request import Request
 
 from product.models import Product
 
+
 class UserBasket(object):
     """
     Класс объект корзины.
@@ -33,12 +34,9 @@ class UserBasket(object):
         product_id = str(product.id)
 
         if product_id not in self.cart:
-            self.cart[product_id] = {
-                'count': count,
-                'price': str(product.price)
-            }
+            self.cart[product_id] = {"count": count, "price": str(product.price)}
         else:
-            self.cart[product_id]['count'] += count
+            self.cart[product_id]["count"] += count
         self.save()
 
     def save(self):
@@ -59,8 +57,8 @@ class UserBasket(object):
         product_id = str(product.id)
 
         if product_id in self.cart:
-            if count == 1 and self.cart[product_id]['count'] > 1:
-                self.cart[product_id]['count'] -= int(count)
+            if count == 1 and self.cart[product_id]["count"] > 1:
+                self.cart[product_id]["count"] -= int(count)
             else:
                 del self.cart[product_id]
             self.save()
@@ -77,7 +75,7 @@ class UserBasket(object):
         Функция для подсчета всех товаров в корзине.
         """
         print(self.__dict__)
-        return sum(prod['count'] for prod in self.cart.values())
+        return sum(prod["count"] for prod in self.cart.values())
 
     def clear(self):
         """
@@ -91,14 +89,20 @@ class UserBasket(object):
         Функция для отображении общей суммы товаров в заказе.
         """
         return sum(
-            [Decimal(
-                prod['price'],
-            ) * prod['count'] for prod in self.cart.values()],
+            [
+                Decimal(
+                    prod["price"],
+                )
+                * prod["count"]
+                for prod in self.cart.values()
+            ],
         )
 
     def to_rep(self):
         l = []
         for product_pk, val in self.cart.items():
-            l.append({"product": Product.objects.get(pk=product_pk), "count": val["count"]})
+            l.append(
+                {"product": Product.objects.get(pk=product_pk), "count": val["count"]}
+            )
             # l.append(a)
         return l

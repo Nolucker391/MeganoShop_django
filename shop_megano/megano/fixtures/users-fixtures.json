@@ -1,0 +1,92 @@
+[
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$oWWR8BfTELC2W33jElmX8Z$58d98zivnWN+Z/H127RnxID0DZQKqcfsDN0EIBYef7s=",
+      "last_login": "2024-07-01T16:54:29.445387+00:00",
+      "is_superuser": true,
+      "username": "admin",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2024-07-01T16:37:41.192473+00:00",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$jq0E1sQGoOmiQuhcP5ON27$2MTWgO49Gj7l0GCzJo2vdLuMO9wZ+Kei1dhvOarD1so=",
+      "last_login": "2024-07-01T17:01:17.785438+00:00",
+      "is_superuser": false,
+      "username": "user",
+      "first_name": "",
+      "last_name": "",
+      "email": "skala2003@mail.ru",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-07-01T16:46:41.508802+00:00",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$UwGbp2xg9zbiYrX0dneOJ8$oSg5uS/IzT9Dzr0SqzlGMmpGpwdtC7/38RqzTGyQWYE=",
+      "last_login": "2024-07-01T16:57:02.783884+00:00",
+      "is_superuser": false,
+      "username": "oleg2002",
+      "first_name": "",
+      "last_name": "",
+      "email": "meimul@mail.ru",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-07-01T16:57:02.507357+00:00",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 4,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$uH8pgOTHipLyQLeedTAlxV$YWSym+/RyZj9wL33yRNXDRovcIcrbCXlOcpZ/rrxHkg=",
+      "last_login": "2024-07-01T17:04:25.162640+00:00",
+      "is_superuser": false,
+      "username": "tamaev",
+      "first_name": "",
+      "last_name": "",
+      "email": "letau4i-ROCHET@mail.ru",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-07-01T17:04:24.882179+00:00",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 5,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$A1yNiZ6OtScPMEfaeu70zp$/E6BrIKW0OvR8Wns6UiSBUD1ntml2juX7Y4J5QeS6cQ=",
+      "last_login": "2024-07-01T17:09:51.431290+00:00",
+      "is_superuser": false,
+      "username": "Andrey",
+      "first_name": "",
+      "last_name": "",
+      "email": "ya-yje-krasniy@mail.ru",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-07-01T17:09:51.149662+00:00",
+      "groups": [],
+      "user_permissions": []
+    }
+  }
+]

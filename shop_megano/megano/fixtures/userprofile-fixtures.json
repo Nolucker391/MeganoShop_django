@@ -1,0 +1,57 @@
+[
+  {
+    "model": "userprofile.userprofile",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "fullName": "Admin",
+      "email": "admin@mail.ru",
+      "phone": "+799987003839",
+      "avatar": "users/user_1/avatars/admin_yoHeEwf.jpeg"
+    }
+  },
+  {
+    "model": "userprofile.userprofile",
+    "pk": 2,
+    "fields": {
+      "user": 2,
+      "fullName": "Almir",
+      "email": "skala2003@mail.ru",
+      "phone": "+78003350198",
+      "avatar": "users/user_2/avatars/hqdefault.jpg"
+    }
+  },
+  {
+    "model": "userprofile.userprofile",
+    "pk": 3,
+    "fields": {
+      "user": 3,
+      "fullName": "Oleg",
+      "email": "meimul@mail.ru",
+      "phone": "+79877558992",
+      "avatar": "users/user_3/avatars/images.jpeg"
+    }
+  },
+  {
+    "model": "userprofile.userprofile",
+    "pk": 4,
+    "fields": {
+      "user": 4,
+      "fullName": "ashab",
+      "email": "letau4i-ROCHET@mail.ru",
+      "phone": "+79996669912",
+      "avatar": "users/user_4/avatars/Снимок_экрана_2024-07-01_в_20.04.55.png"
+    }
+  },
+  {
+    "model": "userprofile.userprofile",
+    "pk": 5,
+    "fields": {
+      "user": 5,
+      "fullName": "Burim",
+      "email": "ya-yje-krasniy@mail.ru",
+      "phone": "+7999888777",
+      "avatar": "users/user_5/avatars/Снимок_экрана_2024-07-01_в_20.09.06.png"
+    }
+  }
+]

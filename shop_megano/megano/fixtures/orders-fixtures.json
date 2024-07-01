@@ -1,0 +1,88 @@
+[
+  {
+    "model": "orders.ordersdeliverytype",
+    "pk": 1,
+    "fields": {
+      "deliveryType": "ordinary"
+    }
+  },
+  {
+    "model": "orders.order",
+    "pk": 1,
+    "fields": {
+      "user": 2,
+      "createdAt": "2024-07-01T16:46:50.526Z",
+      "paymentType": "online",
+      "deliveryType": 1,
+      "totalCost": "6342.44",
+      "status": "accepted",
+      "city": "kazan, from tatarstan",
+      "address": "ul. Pupkina, h. Koloushkina 22",
+      "fullName": "Almir Zalitov",
+      "phone": "+799987003839",
+      "email": "a@mail.ru"
+    }
+  },
+  {
+    "model": "orders.order",
+    "pk": 2,
+    "fields": {
+      "user": 3,
+      "createdAt": "2024-07-01T16:59:17.484Z",
+      "paymentType": "someone",
+      "deliveryType": 1,
+      "totalCost": "7337.02",
+      "status": "awaiting",
+      "city": "Djumandji",
+      "address": "ul.Perekrestok Djunglei-Oceans",
+      "fullName": "Oleg Gerasimov",
+      "phone": "+79877558992",
+      "email": "meimul@mail.ru"
+    }
+  },
+  {
+    "model": "orders.orderscountproducts",
+    "pk": 1,
+    "fields": {
+      "order": 1,
+      "product": 7,
+      "count": 2
+    }
+  },
+  {
+    "model": "orders.orderscountproducts",
+    "pk": 2,
+    "fields": {
+      "order": 1,
+      "product": 17,
+      "count": 1
+    }
+  },
+  {
+    "model": "orders.orderscountproducts",
+    "pk": 3,
+    "fields": {
+      "order": 2,
+      "product": 4,
+      "count": 1
+    }
+  },
+  {
+    "model": "orders.orderscountproducts",
+    "pk": 4,
+    "fields": {
+      "order": 2,
+      "product": 13,
+      "count": 1
+    }
+  },
+  {
+    "model": "orders.orderscountproducts",
+    "pk": 5,
+    "fields": {
+      "order": 2,
+      "product": 14,
+      "count": 1
+    }
+  }
+]

@@ -2,11 +2,10 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-def upload_avatar_path(instance: 'Profile', filename: str) -> str:
+def upload_avatar_path(instance: "Profile", filename: str) -> str:
     return "users/user_{pk}/avatars/{filename}".format(
         pk=instance.user.pk, filename=filename
     )
-
 
 
 class UserProfile(models.Model):
@@ -17,7 +16,7 @@ class UserProfile(models.Model):
     )
     fullName = models.CharField(
         max_length=200,
-        default='',
+        default="",
         null=False,
         blank=True,
     )
@@ -26,9 +25,8 @@ class UserProfile(models.Model):
     avatar = models.ImageField(null=True, upload_to=upload_avatar_path)
 
     def __str__(self):
-        return 'profile {user}'.format(user=self.user.username)
+        return "profile {user}".format(user=self.user.username)
 
     class Meta:
-        verbose_name = 'profile'
-        verbose_name_plural = 'profiles'
-
+        verbose_name = "profile"
+        verbose_name_plural = "profiles"

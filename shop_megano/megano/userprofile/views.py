@@ -16,10 +16,10 @@ from .serializers import (
     RegisterSerializer,
     ProfileSerializer,
     PasswordSerializer,
-    AvatarSerializer
+    AvatarSerializer,
 )
 
-#from usercart.models import UserCart, BasketItem
+# from usercart.models import UserCart, BasketItem
 from product.models import Product
 
 from usercart.models import UserCart
@@ -32,14 +32,14 @@ from usercart.models import BasketItem
 @api_view(["POST"])
 def UserLogin(request: Request):
     """
-       Функция для входа пользователя в систему
+    Функция для входа пользователя в систему
     """
 
     user_data = json.loads(list(request.data.dict().keys())[0])
     serializer = LoginSerializer(data=user_data)
 
     if serializer.is_valid(raise_exception=True):
-        user = serializer.validated_data['user']
+        user = serializer.validated_data["user"]
         login(request, user)
 
         session_cart_data = request.session.get(settings.CART_SESSION_ID, {})
@@ -48,25 +48,30 @@ def UserLogin(request: Request):
         for product_id, details in session_cart_data.items():
 
             product = Product.objects.get(pk=int(product_id))
-            existing_basket_item = BasketItem.objects.filter(product=product, basket=user_basket)
+            existing_basket_item = BasketItem.objects.filter(
+                product=product, basket=user_basket
+            )
 
             if existing_basket_item.exists():
                 for basket_item in existing_basket_item:
-                    basket_item.count += details['count']
+                    basket_item.count += details["count"]
                     basket_item.save()
-                #existing_basket_item.update(count=details['count'])
+                # existing_basket_item.update(count=details['count'])
             else:
-                basket_item = BasketItem(product=product, count=details['count'], basket=user_basket)
+                basket_item = BasketItem(
+                    product=product, count=details["count"], basket=user_basket
+                )
 
                 basket_item.save()
-        return Response('Вы успешно авторизовались!', status=200)
+        return Response("Вы успешно авторизовались!", status=200)
     else:
         return Response(data=serializer.errors, status=500)
+
 
 @api_view(["POST"])
 def UserRegister(request: Request):
     """
-        Функция описывающая регистрацию пользователя на сайте
+    Функция описывающая регистрацию пользователя на сайте
     """
 
     user_data = json.loads(request.body)
@@ -82,20 +87,24 @@ def UserRegister(request: Request):
         for product_id, details in session_cart_data.items():
 
             product = Product.objects.get(pk=int(product_id))
-            existing_basket_item = BasketItem.objects.filter(product=product, basket=user_basket)
+            existing_basket_item = BasketItem.objects.filter(
+                product=product, basket=user_basket
+            )
 
             if existing_basket_item.exists():
                 for basket_item in existing_basket_item:
-                    basket_item.count += details['count']
+                    basket_item.count += details["count"]
                     basket_item.save()
                 # existing_basket_item.update(count=details['count'])
             else:
-                basket_item = BasketItem(product=product, count=details['count'], basket=user_basket)
+                basket_item = BasketItem(
+                    product=product, count=details["count"], basket=user_basket
+                )
 
                 basket_item.save()
 
         return Response(
-            'Успешно зарегистрирован!',
+            "Успешно зарегистрирован!",
             status=200,
         )
     else:
@@ -117,9 +126,9 @@ class UserProfileDetails(APIView):
         user = request.user
 
         data = {
-            'fullName': request.data.get('fullName'),
-            'email': request.data.get('email'),
-            'phone': request.data.get('phone'),
+            "fullName": request.data.get("fullName"),
+            "email": request.data.get("email"),
+            "phone": request.data.get("phone"),
         }
 
         serializer = ProfileSerializer(data=data)
@@ -143,14 +152,14 @@ class UserProfileDetails(APIView):
             user = request.user
 
             data = {
-                'fullName': user.userprofile.fullName,
-                'email': user.userprofile.email,
-                'phone': user.userprofile.phone,
+                "fullName": user.userprofile.fullName,
+                "email": user.userprofile.email,
+                "phone": user.userprofile.phone,
             }
             if user.userprofile.avatar:
-                data['avatar'] = {
-                    'src': user.userprofile.avatar.url,
-                    'alt': user.userprofile.avatar.name,
+                data["avatar"] = {
+                    "src": user.userprofile.avatar.url,
+                    "alt": user.userprofile.avatar.name,
                 }
 
             return Response(data=data, status=200)
@@ -161,6 +170,7 @@ class UserAvatarUpdate(APIView):
     """
     Класс view изменения аватарки профиля у пользователя.
     """
+
     def post(self, request: Request) -> Response:
         """
         Функция принятия POST-запроса.
@@ -177,15 +187,17 @@ class UserAvatarUpdate(APIView):
             serializer.update(user, data)
 
             return Response(
-                'Успешно обновлено!',
+                "Успешно обновлено!",
                 status=status.HTTP_200_OK,
             )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class UserPasswordChange(GenericAPIView, UpdateModelMixin):
     """
     Класс view для изменения пароля пользователя.
     """
+
     serializer_class = PasswordSerializer
 
     def get_object(self):
@@ -195,7 +207,6 @@ class UserPasswordChange(GenericAPIView, UpdateModelMixin):
         """
         if self.request.user.is_authenticated:
             return self.request.user
-
 
     def post(self, *args, **kwargs):
         """
@@ -217,26 +228,28 @@ class UserPasswordChange(GenericAPIView, UpdateModelMixin):
         self.object_user = self.get_object()
 
         data = {
-            'current_password': request.data.get('currentPassword'),
-            'new_password': request.data.get('newPassword')
+            "current_password": request.data.get("currentPassword"),
+            "new_password": request.data.get("newPassword"),
         }
 
         serializer = self.get_serializer(data=data)
 
         if serializer.is_valid():
-            if not self.object_user.check_password(serializer.data.get("current_password")):
+            if not self.object_user.check_password(
+                serializer.data.get("current_password")
+            ):
                 return Response(
-                    {'Error': 'Не верно указан текущий пароль.'},
+                    {"Error": "Не верно указан текущий пароль."},
                     status=status.HTTP_400_BAD_REQUEST,
                 )
 
-            self.object_user.set_password(serializer.data.get('new_password'))
+            self.object_user.set_password(serializer.data.get("new_password"))
             self.object_user.save()
 
             login(request, self.object_user)
 
             return Response(
-                'Update successful',
+                "Update successful",
                 status=status.HTTP_200_OK,
             )
 

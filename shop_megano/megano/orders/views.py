@@ -1,23 +1,13 @@
-import json
-
-from django.contrib.auth import login
-from django.shortcuts import render, redirect
 from rest_framework import status
-from rest_framework.decorators import api_view
-from rest_framework.reverse import reverse_lazy
 from rest_framework.views import APIView
 from rest_framework.request import Request
 from rest_framework.response import Response
-from django.http import HttpResponseRedirect
-
 
 from .models import Order, OrdersCountProducts, OrdersDeliveryType
-from product.models import Product
-from .serializers import OrdersSerializer, PaymentSerializer
-
 from usercart.models import UserCart, BasketItem
+from product.models import Product
 
-from product.models import Sale
+from .serializers import OrdersSerializer, PaymentSerializer
 
 
 class OrdersList(APIView):
@@ -48,9 +38,11 @@ class OrdersList(APIView):
         if request.user.is_authenticated:
             data = request.data
             products_in_order = [
-                (obj['id'], obj['count'], obj['price']) for obj in data
+                (obj["id"], obj["count"], obj["price"]) for obj in data
             ]
-            products = Product.objects.filter(id__in=[product_id[0] for product_id in products_in_order])
+            products = Product.objects.filter(
+                id__in=[product_id[0] for product_id in products_in_order]
+            )
 
             order = Order.objects.create(
                 user=request.user,
@@ -61,20 +53,20 @@ class OrdersList(APIView):
                 product = products[index]
 
                 print(product.get_curr_price())
-                OrdersCountProducts.objects.create(order=order, product=product, count=count)
+                OrdersCountProducts.objects.create(
+                    order=order, product=product, count=count
+                )
 
             order.save()
 
             UserCart.objects.get(user=request.user).delete()
 
-            return Response({
-                'orderId': order.pk
-            })
+            return Response({"orderId": order.pk})
 
         else:
             # return HttpResponseRedirect(redirect_to="/sign-in/")
             # return redirect("http://127.0.0.1:8000/sign-in/")
-            return Response('Bad request', status=500)
+            return Response("Bad request", status=500)
 
 
 class OrderDetails(APIView):
@@ -98,19 +90,23 @@ class OrderDetails(APIView):
         """
         data = request.data
         order = Order.objects.get(pk=pk)
-        order.fullName = data['fullName']
-        order.phone = data['phone']
-        order.email = data['email']
-        order.city = data['city']
-        order.address = data['address']
-        order.paymentType = data['paymentType']
+        order.fullName = data["fullName"]
+        order.phone = data["phone"]
+        order.email = data["email"]
+        order.city = data["city"]
+        order.address = data["address"]
+        order.paymentType = data["paymentType"]
         order.status = Order.CHOICES[0][1]
 
-        if data['deliveryType'] is None:
-            order_delivery, _ = OrdersDeliveryType.objects.get_or_create(deliveryType='ordinary')
+        if data["deliveryType"] is None:
+            order_delivery, _ = OrdersDeliveryType.objects.get_or_create(
+                deliveryType="ordinary"
+            )
 
         else:
-            order_delivery, _ = OrdersDeliveryType.objects.get_or_create(deliveryType=data['deliveryType'])
+            order_delivery, _ = OrdersDeliveryType.objects.get_or_create(
+                deliveryType=data["deliveryType"]
+            )
 
         order.deliveryType = order_delivery
 
@@ -126,20 +122,19 @@ class Payment(APIView):
 
     def post(self, request: Request, pk):
         data = {
-            'card_number': f'{request.data.get('number')}',
-            'month': f'{request.data.get('month')}',
-            'year': f'{request.data.get('year')}',
-            'cvv_code': f'{request.data.get('code')}',
-            'fullname': f'{request.data.get('name')}',
+            "card_number": f"{request.data.get('number')}",
+            "month": f"{request.data.get('month')}",
+            "year": f"{request.data.get('year')}",
+            "cvv_code": f"{request.data.get('code')}",
+            "fullname": f"{request.data.get('name')}",
         }
         serializer = PaymentSerializer(data=data)
 
         if serializer.is_valid():
             order = Order.objects.get(pk=pk)
-            order.status = 'accepted'
+            order.status = "accepted"
             order.save()
 
             return Response(request.data, status=200)
         else:
             return Response({"errors": serializer.errors}, status=400)
-
