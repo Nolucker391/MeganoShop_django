@@ -1,4 +1,5 @@
 import datetime
+import re
 
 from rest_framework import serializers
 from .models import Order, OrdersCountProducts, OrdersDeliveryType
@@ -72,3 +73,52 @@ class OrdersSerializer(serializers.ModelSerializer):
 
         #
         # return data
+
+class PaymentSerializer(serializers.Serializer):
+    """
+    Сериализатор для валидации данных, оплачиваемой картой.
+    """
+    card_number = serializers.CharField(max_length=20)
+    month = serializers.IntegerField(min_value=1, max_value=12)
+    year = serializers.IntegerField(min_value=2000, max_value=2099)
+    cvv_code = serializers.CharField(max_length=3)
+    fullname = serializers.CharField(max_length=50)
+
+    def validate_card_number(self, value):
+        if not value.isdigit():
+            raise serializers.ValidationError('Номер карты должен состоять только из цифр.')
+        if len(value) < 16 or len(value) > 20:
+            raise serializers.ValidationError("Номер карты должен иметь длину от 16 до 20 символов.")
+
+        return value
+
+    def validate_month(self, value):
+        if not (1 <= value <= 12):
+            raise serializers.ValidationError('Месяц карты должен быть двухзначным.')
+        return value
+
+    def validate_year(self, value):
+        if not (2000 <= value <= 2099):
+            raise serializers.ValidationError("Год должен быть четырехзначным числом.")
+        return value
+
+    def validate_cvv_code(self, value):
+        if not value.isdigit():
+            raise serializers.ValidationError("CVV должен состоять только из цифр.")
+        if len(value) != 3:
+            raise serializers.ValidationError("CVV-код должен состоять ровно из 3 цифр.")
+
+        return value
+
+    def validate_fullname(self, value):
+        # pattern = r'^[a-zA-Z\s\]*$'
+        # if not re.match(pattern, value):
+        # if not value.isalpha():
+        # pattern = r'^[a-zA-Z\s]*$'
+        # if not re.match(pattern, value):
+        words = value.split()
+
+        for word in words:
+            if not word.isalpha():
+                raise serializers.ValidationError("Имя на карте должно содержать только буквы.")
+        return value

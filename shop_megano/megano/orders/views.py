@@ -13,7 +13,7 @@ from django.http import HttpResponseRedirect
 
 from .models import Order, OrdersCountProducts, OrdersDeliveryType
 from product.models import Product
-from .serializers import OrdersSerializer
+from .serializers import OrdersSerializer, PaymentSerializer
 
 from usercart.models import UserCart, BasketItem
 
@@ -125,11 +125,21 @@ class Payment(APIView):
     """
 
     def post(self, request: Request, pk):
-        order = Order.objects.get(pk=pk)
-        print(order.__dict__)
-        order.status = 'accepted'
-        order.save()
-        # usercart = UserCart.objects.get(user=request.user)
-        # usercart.delete()
+        data = {
+            'card_number': f'{request.data.get('number')}',
+            'month': f'{request.data.get('month')}',
+            'year': f'{request.data.get('year')}',
+            'cvv_code': f'{request.data.get('code')}',
+            'fullname': f'{request.data.get('name')}',
+        }
+        serializer = PaymentSerializer(data=data)
 
-        return Response(request.data, status=200)
+        if serializer.is_valid():
+            order = Order.objects.get(pk=pk)
+            order.status = 'accepted'
+            order.save()
+
+            return Response(request.data, status=200)
+        else:
+            return Response({"errors": serializer.errors}, status=400)
+

@@ -30,14 +30,16 @@
     <connection id="49c0583f-a6db-442d-b55e-d59b614e36b5" />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
-    <filter-actions connection-id="49c0583f-a6db-442d-b55e-d59b614e36b5" dataset="main.userprofile_userprofile" active-filter-id="" />
-    <filter-actions connection-id="49c0583f-a6db-442d-b55e-d59b614e36b5" dataset="main.orders_order" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="49c0583f-a6db-442d-b55e-d59b614e36b5" dataset="main.orders_ordersdeliverytype" active-filter-id="EMPTY_FILTER" />
-    <filter-actions connection-id="49c0583f-a6db-442d-b55e-d59b614e36b5" dataset="main.product_categoryproduct" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="49c0583f-a6db-442d-b55e-d59b614e36b5" dataset="main.usercart_basketitem" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="49c0583f-a6db-442d-b55e-d59b614e36b5" dataset="main.product_product" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="49c0583f-a6db-442d-b55e-d59b614e36b5" dataset="main.orders_order_products" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="49c0583f-a6db-442d-b55e-d59b614e36b5" dataset="main.product_sale" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="49c0583f-a6db-442d-b55e-d59b614e36b5" dataset="main.userprofile_userprofile" active-filter-id="" />
+    <filter-actions connection-id="49c0583f-a6db-442d-b55e-d59b614e36b5" dataset="main.auth_user" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="49c0583f-a6db-442d-b55e-d59b614e36b5" dataset="main.auth_user_groups" active-filter-id="" />
+    <filter-actions connection-id="49c0583f-a6db-442d-b55e-d59b614e36b5" dataset="main.orders_order" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="49c0583f-a6db-442d-b55e-d59b614e36b5" dataset="main.product_categoryproduct" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="49c0583f-a6db-442d-b55e-d59b614e36b5" dataset="main.usercart_usercart" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="49c0583f-a6db-442d-b55e-d59b614e36b5" dataset="main.orders_orderscountproducts" active-filter-id="EMPTY_FILTER" />
   </component>

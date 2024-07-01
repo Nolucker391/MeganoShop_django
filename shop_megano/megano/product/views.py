@@ -43,7 +43,6 @@ class ProductsListView(ListAPIView):
 
         filter_dict = dict()
         sort_list = list()
-
         filter_dict["count__gt"] = 0
 
         name = request.query_params.get('filter[name]') or None
@@ -88,9 +87,9 @@ class ProductsListView(ListAPIView):
                 all_categories.append(int(category))
                 filter_dict["category_id__in"] = all_categories
 
+        # {'count__gt': 0, 'archived': True, 'price__range': (0.0, 50000.0)}
         products_list = Product.objects.filter(**filter_dict)
 
-        print(products_list)
         if request.GET.get('sortType') == 'inc':
             sortType = '-'
         else:

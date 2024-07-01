@@ -96,7 +96,7 @@ class Product(models.Model):
     title = models.CharField(max_length=200, null=False, blank=True) # название
     description = models.CharField(max_length=200, null=False, blank=True) # описание
     price = models.DecimalField(default=1, max_digits=8, decimal_places=2, null=False) # цена
-    count = models.IntegerField(default=0, null=False) # количество
+    count = models.IntegerField(default=1, null=False) # количество
     rating = models.DecimalField(default=0, max_digits=5, decimal_places=2, null=False) # рейтинг продукта
     date = models.DateTimeField(auto_now_add=True, null=False) # дата создания
     archived = models.BooleanField(default=False) # архив
