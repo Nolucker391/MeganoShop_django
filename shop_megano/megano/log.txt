@@ -22,3 +22,52 @@
 2024-07-08 10:26:25,906 [INFO] django.utils.autoreload: /Users/skillboxstudy/PycharmProjects/MeganoShop_django/shop_megano/megano/megano/settings.py changed, reloading.
 2024-07-08 10:26:26,235 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
 2024-07-08 10:26:46,829 [INFO] django.utils.autoreload: /Users/skillboxstudy/PycharmProjects/MeganoShop_django/shop_megano/megano/megano/settings.py changed, reloading.
+2024-07-08 12:07:32,750 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-07-08 12:07:37,660 [WARNING] django.request: Not Found: /static/frontend/assets/css/basic.css
+2024-07-08 12:07:37,661 [WARNING] django.request: Not Found: /static/frontend/assets/css/extra.css
+2024-07-08 12:07:37,661 [WARNING] django.request: Not Found: /static/frontend/assets/css/fonts.css
+2024-07-08 12:07:37,664 [WARNING] django.request: Not Found: /static/frontend/assets/plg/CountDown/countdown.js
+2024-07-08 12:07:37,666 [WARNING] django.request: Not Found: /static/frontend/assets/img/icons/socialHeader/fb.svg
+2024-07-08 12:07:37,669 [WARNING] django.request: Not Found: /static/frontend/assets/img/icons/socialHeader/tw.svg
+2024-07-08 12:07:37,672 [WARNING] django.request: Not Found: /static/frontend/assets/img/icons/socialHeader/in.svg
+2024-07-08 12:07:37,673 [WARNING] django.request: Not Found: /static/frontend/assets/img/icons/socialHeader/pt.svg
+2024-07-08 12:07:37,675 [WARNING] django.request: Not Found: /static/frontend/assets/img/icons/socialHeader/mail.svg
+2024-07-08 12:07:37,675 [WARNING] django.request: Not Found: /static/frontend/assets/js/index.js
+2024-07-08 12:07:37,764 [WARNING] django.request: Not Found: /static/frontend/assets/js/app.js
+2024-07-08 12:07:37,768 [WARNING] django.request: Not Found: /static/frontend/assets/plg/jQuery/jquery-3.5.0.slim.min.js
+2024-07-08 12:07:37,771 [WARNING] django.request: Not Found: /static/frontend/assets/plg/form/jquery.form.js
+2024-07-08 12:07:37,772 [WARNING] django.request: Not Found: /static/frontend/assets/plg/form/jquery.maskedinput.min.js
+2024-07-08 12:07:37,776 [WARNING] django.request: Not Found: /static/frontend/assets/plg/Slider/slick.min.js
+2024-07-08 12:07:37,778 [WARNING] django.request: Not Found: /static/frontend/assets/plg/range/ion.rangeSlider.min.js
+2024-07-08 12:07:37,778 [WARNING] django.request: Not Found: /static/frontend/assets/js/scripts.js
+2024-07-08 12:07:37,779 [WARNING] django.request: Not Found: /static/frontend/assets/img/logo.png
+2024-07-08 12:07:37,780 [WARNING] django.request: Not Found: /static/frontend/assets/img/icons/cart.svg
+2024-07-08 12:07:37,782 [WARNING] django.request: Not Found: /static/frontend/assets/img/icons/allDep.svg
+2024-07-08 12:07:37,788 [WARNING] django.request: Not Found: /static/frontend/assets/img/icons/search.svg
+2024-07-08 12:07:37,789 [WARNING] django.request: Not Found: /static/frontend/assets/img/icons/card/cart.svg
+2024-07-08 12:07:37,790 [WARNING] django.request: Not Found: /static/frontend/assets/img/icons/advantages/shipping.svg
+2024-07-08 12:07:37,792 [WARNING] django.request: Not Found: /static/frontend/assets/img/icons/advantages/moneyBack.svg
+2024-07-08 12:07:37,793 [WARNING] django.request: Not Found: /static/frontend/assets/img/icons/advantages/quality.svg
+2024-07-08 12:07:37,794 [WARNING] django.request: Not Found: /static/frontend/assets/img/icons/advantages/support.svg
+2024-07-08 12:07:37,799 [WARNING] django.request: Not Found: /static/frontend/assets/img/icons/search.svg
+2024-07-08 12:07:37,800 [WARNING] django.request: Not Found: /static/frontend/assets/img/logo_footer.png
+2024-07-08 12:07:37,801 [WARNING] django.request: Not Found: /static/frontend/assets/img/icons/socialFooter/fb.svg
+2024-07-08 12:07:37,805 [WARNING] django.request: Not Found: /static/frontend/assets/img/icons/socialFooter/tw.svg
+2024-07-08 12:07:37,807 [WARNING] django.request: Not Found: /static/frontend/assets/img/icons/socialFooter/in.svg
+2024-07-08 12:07:37,807 [WARNING] django.request: Not Found: /static/frontend/assets/img/icons/socialFooter/pt.svg
+2024-07-08 12:07:37,807 [WARNING] django.request: Not Found: /static/frontend/assets/img/icons/socialFooter/mail.svg
+2024-07-08 12:07:37,808 [WARNING] django.request: Not Found: /static/frontend/assets/img/payments/visa.png
+2024-07-08 12:07:37,808 [WARNING] django.request: Not Found: /static/frontend/assets/img/payments/mastercard.png
+2024-07-08 12:07:37,808 [WARNING] django.request: Not Found: /static/frontend/assets/img/payments/paypal.png
+2024-07-08 12:07:37,811 [WARNING] django.request: Not Found: /static/frontend/assets/img/payments/american.png
+2024-07-08 12:07:37,812 [WARNING] django.request: Not Found: /static/frontend/assets/img/payments/electron.png
+2024-07-08 12:07:37,812 [WARNING] django.request: Not Found: /static/frontend/assets/img/payments/delta.png
+2024-07-08 12:07:37,813 [WARNING] django.request: Not Found: /static/frontend/assets/img/payments/maestro.png
+2024-07-08 12:07:37,813 [WARNING] django.request: Not Found: /static/frontend/assets/img/payments/e.png
+2024-07-08 12:07:37,813 [WARNING] django.request: Not Found: /static/frontend/assets/img/payments/dk.png
+2024-07-08 12:07:37,816 [WARNING] django.request: Not Found: /static/frontend/assets/img/icons/card/cart.svg
+2024-07-08 12:07:37,821 [WARNING] django.request: Not Found: /static/frontend/favicon.ico
+2024-07-08 12:08:04,671 [INFO] django.utils.autoreload: /Users/skillboxstudy/PycharmProjects/MeganoShop_django/shop_megano/megano/megano/settings.py changed, reloading.
+2024-07-08 12:08:04,969 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2024-07-08 12:08:11,270 [INFO] django.utils.autoreload: /Users/skillboxstudy/PycharmProjects/MeganoShop_django/shop_megano/megano/megano/settings.py changed, reloading.
+2024-07-08 12:08:11,561 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
