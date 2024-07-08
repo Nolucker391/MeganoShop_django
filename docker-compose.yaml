@@ -1,4 +1,4 @@
-version: "3.9"
+#version: "3.9"
 
 services:
   app:
@@ -12,12 +12,12 @@ services:
     ports:
       - "8000:8000"
     restart: always
-    env_file:
-      - .env.template
+#    env_file:
+#      - .env.template
     logging:
       driver: "json-file"
       options:
         max-file: "10"
         max-size: "200k"
     volumes:
-      - ./megano/database:/app/database
+      - .shop_megano/megano/database:/app/database
