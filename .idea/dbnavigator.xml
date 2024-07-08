@@ -77,7 +77,7 @@
           <tns-folder value="" />
           <tns-profile value="" />
           <files>
-            <file path="$PROJECT_DIR$/shop_megano/megano/database/db.sqlite3" schema="main" />
+            <file path="$PROJECT_DIR$/.shop_megano/megano/database/db.sqlite3" schema="main" />
           </files>
           <type value="NONE" />
           <user value="" />
