@@ -11,7 +11,11 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 import os
+import logging.config
+
 from pathlib import Path
+from os import getenv
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,13 +27,33 @@ DATABASE_DIR.mkdir(exist_ok=True)
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-vh@zd+av)1gn@9gl-79w5=h0%fidzo-84&+%3ap(drhmc42qdm"
+
+# SECRET_KEY = "django-insecure-vh@zd+av)1gn@9gl-79w5=h0%fidzo-84&+%3ap(drhmc42qdm"
+SECRET_KEY = getenv(
+    'DJANGO_SECRET_KEY',
+    default='django-insecure-vh@zd+av)1gn@9gl-79w5=h0%fidzo-84&+%3ap(drhmc42qdm',
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
+# DEBUG = True
+DEBUG = getenv('DJANGO_DEBUG', '0') == '1'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    '0.0.0.0',
+] + getenv('DJANGO_ALLOWED_HOSTS', default='').split(',')
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
+if DEBUG:
+    import socket
+
+    hostname, alt_names, ips = socket.gethostbyname_ex(socket.gethostname())
+    INTERNAL_IPS.append('10.0.2.2')
+    INTERNAL_IPS.extend(
+        [ip[:ip.rfind('.')] + '.1' for ip in ips]
+    )
 
 
 # Application definition
@@ -146,6 +170,65 @@ REST_FRAMEWORKS = {
     # #"DEFAULT_PAGINATION_CLASS": "rets_framework.pagination.LimitOffsetPagination",
     # "PAGE_SIZE": 8,
 }
+
+LOGFILE_NAME = BASE_DIR / 'log.txt'
+LOGFILE_SIZE = 5 * 1024 * 1024
+LOGFILE_COUNT = 3
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(asctime)s [%(levelname)s] %(name)s: %(message)s',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+        'logfile': {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': LOGFILE_NAME,
+            'maxBytes': LOGFILE_SIZE,
+            'backupCount': LOGFILE_COUNT,
+            'formatter': 'verbose',
+        },
+    },
+    'root': {
+        'handlers': [
+            'console',
+            'logfile',
+        ],
+        'level': 'INFO',
+    },
+}
+LOGLEVEL = getenv('DJANGO_LOGLEVEL', default='info').upper()
+
+logging.config.dictConfig({
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'console': {
+            'format': '%(asctime)s %(levelname)s [%(name)s:%(lineno)s] %(module)s %(message)s'
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'console',
+        },
+    },
+    'loggers': {
+        '': {
+            'level': 'DEBUG',
+            'handlers': [
+                'console',
+            ],
+        },
+    },
+})
 
 # SESSION_COOKIE_AGE = None
 CART_SESSION_ID = "usercart"
