@@ -9,14 +9,13 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         users = list(User.objects.values())
 
-        # Создаем новый список для пользователей с нужной структурой
         formatted_users = []
         for user in users:
             formatted_user = {
                 "model": "auth.user",
                 "pk": user['id'],
                 "fields": {
-                    "password": user['password'],  # Убедитесь, что пароли обрабатываются безопасно
+                    "password": user['password'],
                     "last_login": user['last_login'].isoformat() if 'last_login' in user else None,
                     "is_superuser": user['is_superuser'],
                     "username": user['username'],
