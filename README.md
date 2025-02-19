@@ -1,12 +1,21 @@
-# Интернет-магазин MEGANO 
+<h1 align="center">Интернет-магазин MEGANO 
 
-### Desktop Preview
-https://github.com/user-attachments/assets/88f668db-81f7-41f2-9405-e089b3dfc3d6
 
-<h3 align="center">Интернет магазин по продаже техники</h3>
+<br>
+<br>
+
+<img src="images/logo.png" alt="Demo" width="300" height="250">
+
+</h1>
+
+## Описание
+
+**Интернет магазин по продаже техники.**<br>
 Проект разработан на фреймворке Django. За отображение страниц отвечает приложение frontend, а обращение за данными происходит по API, который реализован с использованием Django Rest Framework.
 
-![Иллюстрация к проекту](images/main.png)
+### Демо-версия
+https://github.com/user-attachments/assets/88f668db-81f7-41f2-9405-e089b3dfc3d6
+
 
 ## Инструкция по запуску проекта
 
